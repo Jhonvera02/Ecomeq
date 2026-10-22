@@ -1,0 +1,90 @@
+[
+    {
+        "id": "res-1",
+        "month": "2025-10",
+        "production": 4800,
+        "energy_consumed": 7200,
+        "energy_generated": 1200,
+        "water_initial": 1000,
+        "water_final": 1180,
+        "water_photo": "",
+        "operator": "Laura Martínez"
+    },
+    {
+        "id": "res-2",
+        "month": "2025-11",
+        "production": 5000,
+        "energy_consumed": 7400,
+        "energy_generated": 1500,
+        "water_initial": 1180,
+        "water_final": 1380,
+        "water_photo": "",
+        "operator": "Laura Martínez"
+    },
+    {
+        "id": "res-3",
+        "month": "2025-12",
+        "production": 5200,
+        "energy_consumed": 7800,
+        "energy_generated": 1100,
+        "water_initial": 1380,
+        "water_final": 1600,
+        "water_photo": "",
+        "operator": "Laura Martínez"
+    },
+    {
+        "id": "res-4",
+        "month": "2026-01",
+        "production": 4500,
+        "energy_consumed": 6800,
+        "energy_generated": 1300,
+        "water_initial": 1600,
+        "water_final": 1790,
+        "water_photo": "",
+        "operator": "Laura Martínez"
+    },
+    {
+        "id": "res-5",
+        "month": "2026-02",
+        "production": 4600,
+        "energy_consumed": 6900,
+        "energy_generated": 1400,
+        "water_initial": 1790,
+        "water_final": 1970,
+        "water_photo": "",
+        "operator": "Carlos Gómez"
+    },
+    {
+        "id": "res-6",
+        "month": "2026-03",
+        "production": 4800,
+        "energy_consumed": 7000,
+        "energy_generated": 1600,
+        "water_initial": 1970,
+        "water_final": 2170,
+        "water_photo": "",
+        "operator": "Carlos Gómez"
+    },
+    {
+        "id": "res-7",
+        "month": "2026-04",
+        "production": 5000,
+        "energy_consumed": 7500,
+        "energy_generated": 1800,
+        "water_initial": 2170,
+        "water_final": 2410,
+        "water_photo": "",
+        "operator": "Carlos Gómez"
+    },
+    {
+        "id": "res-8",
+        "month": "2026-05",
+        "production": 5200,
+        "energy_consumed": 8000,
+        "energy_generated": 2000,
+        "water_initial": 2410,
+        "water_final": 2650,
+        "water_photo": "",
+        "operator": "Carlos Gómez"
+    }
+]

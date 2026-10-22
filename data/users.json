@@ -1,0 +1,16 @@
+[
+    {
+        "email": "admin@ecomeq.com",
+        "password": "admin123",
+        "name": "Laura Martínez",
+        "role": "Coordinador",
+        "area": "Medio Ambiente"
+    },
+    {
+        "email": "operador@ecomeq.com",
+        "password": "operador123",
+        "name": "Carlos Gómez - Jefe de Producción",
+        "role": "Jefe de Área",
+        "area": "Producción"
+    }
+]

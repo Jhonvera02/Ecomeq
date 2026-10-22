@@ -1,0 +1,17 @@
+{
+  "name": "Ecomeq RESPEL & Capacitaciones",
+  "short_name": "Ecomeq",
+  "description": "Sistema de Gestión de Residuos Peligrosos e Inspecciones de Seguridad",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0b132b",
+  "theme_color": "#1c2541",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "logo.png",
+      "sizes": "192x192 512x512",
+      "type": "image/png"
+    }
+  ]
+}

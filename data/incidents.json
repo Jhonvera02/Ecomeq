@@ -1,0 +1,38 @@
+[
+    {
+        "id": "inc-1",
+        "datetime": "2026-04-12T09:15",
+        "area": "Mantenimiento",
+        "substance": "Hidrocarburos",
+        "volume": 15,
+        "kitUsed": "Sí",
+        "status": "Controlado",
+        "operator": "Juan Pérez",
+        "desc": "Rotura de manguera de trasvase de aceite hidráulico usado.",
+        "action": "Se colocaron salchichas absorbentes del kit y arena. El aceite fue absorbido con hojas absorbentes y depositado en bolsa de RESPEL."
+    },
+    {
+        "id": "inc-2",
+        "datetime": "2026-05-02T11:00",
+        "area": "Laboratorio",
+        "substance": "Ácidos",
+        "volume": 3.5,
+        "kitUsed": "Sí",
+        "status": "Controlado",
+        "operator": "Doris Quiroga",
+        "desc": "Caída de frasco de ácido nítrico concentrado en mesón.",
+        "action": "Se aplicó neutralizante en polvo para ácidos (cambió de color indicando neutralización) y se limpió con estopa húmeda."
+    },
+    {
+        "id": "inc-3",
+        "datetime": "2026-05-20T16:30",
+        "area": "Producción",
+        "substance": "Básicos",
+        "volume": 8,
+        "kitUsed": "Sí",
+        "status": "Controlado",
+        "operator": "Carlos Gómez",
+        "desc": "Derrame menor de soda cáustica líquida por rebose de tanque de lavado.",
+        "action": "Se acordonó el área, se aplicó neutralizante básico y absorbente universal."
+    }
+]

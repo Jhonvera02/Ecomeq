@@ -1,0 +1,22 @@
+{
+  "name": "ecomeq-respel",
+  "version": "1.0.0",
+  "description": "Sistema de gestión de residuos peligrosos (RESPEL) y capacitaciones - Ecomeq",
+  "main": "index.html",
+  "scripts": {
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "respel",
+    "gestion-ambiental",
+    "ecomeq"
+  ],
+  "author": "Ecomeq",
+  "license": "ISC",
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}

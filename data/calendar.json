@@ -1,0 +1,47 @@
+[
+    {
+        "title": "Día Mundial del Agua",
+        "date": "2026-03-22",
+        "type": "efemeride",
+        "desc": "Celebración y concientización sobre el recurso hídrico.",
+        "recurry": true
+    },
+    {
+        "title": "Día de la Tierra",
+        "date": "2026-04-22",
+        "type": "efemeride",
+        "desc": "Fecha internacional para promover la conservación del planeta.",
+        "recurry": true
+    },
+    {
+        "title": "Día Mundial del Medio Ambiente",
+        "date": "2026-06-05",
+        "type": "efemeride",
+        "desc": "Principal fecha de la ONU para fomentar la acción ambiental.",
+        "recurry": true
+    },
+    {
+        "title": "Inspección General del Centro de Acopio",
+        "date": "2026-07-10",
+        "type": "inspeccion",
+        "desc": "Revisión trimestral obligatoria de diques de contención y rotulado SGA."
+    },
+    {
+        "title": "Despacho Semanal de Hidrocarburos",
+        "date": "2026-07-12",
+        "type": "recoleccion",
+        "desc": "Entrega programada al gestor autorizado."
+    },
+    {
+        "title": "Capacitación en Manejo de Derrames",
+        "date": "2026-07-18",
+        "type": "capacitacion",
+        "desc": "Taller práctico obligatorio para brigadistas y operadores de área."
+    },
+    {
+        "title": "Comité Ambiental Mensual",
+        "date": "2026-07-25",
+        "type": "reunion",
+        "desc": "Reunión de seguimiento a KPIs de consumo de recursos."
+    }
+]

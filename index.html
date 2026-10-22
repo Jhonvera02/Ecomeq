@@ -1,0 +1,2218 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Plataforma Ecomeq para la gestión de residuos peligrosos (RESPEL) y capacitación industrial.">
+    <title>Ecomeq - Sistema de Gestión RESPEL</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="index.css">
+    
+    <!-- PWA Manifest & Mobile Web App Meta -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1c2541">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Ecomeq">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="logo.png">
+    <link rel="icon" type="image/png" href="logo.png">
+</head>
+<body>
+    <!-- Decoración de fondo (efectos de brillo) -->
+    <div class="glow-orb orb-1"></div>
+    <div class="glow-orb orb-2"></div>
+
+    <!-- 1. PANTALLA DE INICIO DE SESIÓN -->
+    <div id="login-container" class="page-container active-flex">
+        <!-- Panel Visual (Banner de portada izquierdo en Desktop) -->
+        <div class="login-visual-panel">
+            <div class="visual-panel-content">
+                <div class="visual-badge">CIACOMEQ</div>
+                <h2>Plataforma Ecomeq</h2>
+                <p class="visual-tagline">Tecnología inteligente para la gestión de residuos peligrosos, consumos y sostenibilidad industrial.</p>
+                
+                <div class="visual-features">
+                    <div class="feature-item">
+                        <span class="feature-icon">🛡️</span>
+                        <div>
+                            <h4>Seguridad SGA y FDS</h4>
+                            <p>Control riguroso y biblioteca digital de fichas de seguridad.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">⚡</span>
+                        <div>
+                            <h4>Monitoreo Solar Fotovoltaico</h4>
+                            <p>Cálculo de participación y consumo de energía en tiempo real.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">📊</span>
+                        <div>
+                            <h4>Reportes Consolidados</h4>
+                            <p>Generación de informes de despacho y analítica mensual o por fecha.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="visual-panel-footer">
+                <span>© 2026 CIACOMEQ S.A.S. - Todos los derechos reservados.</span>
+            </div>
+        </div>
+
+        <!-- Panel del Formulario (Derecho en Desktop) -->
+        <div class="login-form-panel">
+            <div class="login-card">
+                <div class="login-header">
+                    <div class="logo-badge" style="background: white; padding: 4px; border-radius: 16px;">
+                        <img src="logo.png" alt="Logo CIACOMEQ" style="width: 100%; height: 100%; object-fit: contain;">
+                    </div>
+                    <h1>Ecomeq</h1>
+                    <p>Gestión Inteligente de RESPEL</p>
+                </div>
+                
+                <form id="login-form">
+                    <div class="form-group">
+                        <label for="login-email">Correo Electrónico</label>
+                        <div class="input-wrapper">
+                            <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                            <input type="email" id="login-email" placeholder="ejemplo@ecomeq.com" required autocomplete="username">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="login-password">Contraseña</label>
+                        <div class="input-wrapper">
+                            <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                            <input type="password" id="login-password" placeholder="••••••••" required autocomplete="current-password">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Demo Credenciales Rápidas</label>
+                        <div class="demo-buttons">
+                            <button type="button" class="btn-secondary btn-xs" onclick="setDemoCredentials('jefatura')">Jefe de Área (Jefatura)</button>
+                            <button type="button" class="btn-secondary btn-xs" onclick="setDemoCredentials('admin')">Coordinador (Admin)</button>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-primary w-full">
+                        <span>Iniciar Sesión</span>
+                        <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2.5" fill="none"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. ESQUELETO DE LA APLICACIÓN (BARRA LATERAL + CONTENIDO) -->
+    <div id="app-container" class="page-container">
+        <!-- Navegación de barra lateral -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-icon" style="background: white; padding: 2px; border-radius: 8px;">
+                    <img src="logo.png" alt="Logo CIACOMEQ" style="width: 100%; height: 100%; object-fit: contain;">
+                </div>
+                <span class="logo-text">Ecomeq</span>
+            </div>
+
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="admin-only-block">
+                        <button class="nav-btn active" data-target="dashboard">
+                            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                            <span>Dashboard</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="nav-btn" data-target="report">
+                            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" y1="18" x2="12" y2="12"></line><line x1="9" y1="15" x2="15" y2="15"></line></svg>
+                            <span>Reportar RESPEL</span>
+                        </button>
+                    </li>
+                    <li class="admin-only-block">
+                        <button class="nav-btn" data-target="history">
+                            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+                            <span>Ver Residuos</span>
+                        </button>
+                    </li>
+                    <li class="admin-only-block">
+                        <button class="nav-btn" data-target="analytics">
+                            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+                            <span>Informes Históricos</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="nav-btn" data-target="incidents">
+                            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><circle cx="12" cy="17" r="0.5"></circle></svg>
+                            <span>Incidentes y Derrames</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="nav-btn" data-target="sds">
+                            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                            <span>Fichas de Seguridad (FDS)</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="nav-btn" data-target="trainings">
+                            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"></path></svg>
+                            <span>Capacitaciones</span>
+                            <span class="badge badge-accent" id="badge-trainings-count">4</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="nav-btn" data-target="inspections">
+                            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><path d="M9 11l3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+                            <span>Inspecciones</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="nav-btn" data-target="calendar">
+                            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                            <span>Calendario Ambiental</span>
+                        </button>
+                    </li>
+                    <li class="admin-only-block">
+                        <button class="nav-btn" data-target="resources">
+                            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+                            <span>Energía y Agua</span>
+                        </button>
+                    </li>
+                    <li class="admin-only-block">
+                        <button class="nav-btn" data-target="users">
+                            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                            <span>Gestión de Accesos</span>
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <div class="user-avatar" id="user-avatar-initials">UA</div>
+                    <div class="user-info">
+                        <div class="user-name" id="profile-name">Usuario Demo</div>
+                        <div class="user-role" id="profile-role">Operador</div>
+                    </div>
+                </div>
+                <button class="btn-logout" id="logout-btn" title="Cerrar Sesión">
+                    <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Área de contenido principal -->
+        <main class="main-content">
+            <!-- Encabezado -->
+            <header class="app-header">
+                <div class="header-left">
+                    <button id="sidebar-toggle" class="sidebar-toggle" aria-label="Toggle Sidebar">
+                        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2.5" fill="none"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                    </button>
+                    <h2 id="view-title" class="page-title">Dashboard</h2>
+                </div>
+                <div class="header-right">
+                    <!-- Contenedor de Notificaciones -->
+                    <div class="notification-container" style="position: relative; margin-right: 8px;">
+                        <button id="notification-btn" class="nav-icon-btn" aria-label="Notificaciones" style="background: none; border: none; color: var(--color-text-muted); cursor: pointer; padding: 6px; border-radius: 8px; position: relative; display: flex; align-items: center; justify-content: center; transition: all 0.2s;">
+                            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+                            <span class="notification-badge" id="notification-count" style="position: absolute; top: 0; right: 0; min-width: 16px; height: 16px; border-radius: 50%; background: var(--color-error); color: #fff; font-size: 9px; font-weight: 700; display: none; align-items: center; justify-content: center; padding: 0 4px; box-shadow: 0 0 0 2px var(--color-bg);">0</span>
+                        </button>
+                        <div id="notification-dropdown" class="notification-dropdown" style="display: none; position: absolute; right: 0; top: 38px; width: 320px; background: var(--color-surface-bg); border: 1px solid var(--color-surface-border); border-radius: var(--border-radius-md); box-shadow: var(--shadow-soft); z-index: 1000; padding: 16px; backdrop-filter: var(--glass-blur);">
+                            <div class="dropdown-header" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255, 255, 255, 0.05); padding-bottom: 8px; margin-bottom: 8px;">
+                                <h4 style="font-size: 13px; font-weight: 600; color: #fff; margin: 0;">Notificaciones</h4>
+                                <button id="clear-notifications-btn" style="background: none; border: none; color: var(--color-accent-light); font-size: 11px; cursor: pointer; font-weight: 500;">Limpiar</button>
+                            </div>
+                            <div id="notification-list" style="max-height: 240px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px;">
+                                <!-- Poblado por JS -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="date-badge">
+                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                        <span id="header-date">3 de Junio, 2026</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Contenedores de vistas dinámicas -->
+            <div id="view-content-wrapper">
+                
+                <!-- VISTA A: DASHBOARD -->
+                <section id="view-dashboard" class="content-view active-view">
+                    <!-- Tarjetas de métricas -->
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <div class="card-icon info">
+                                <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                            </div>
+                            <div class="metric-info">
+                                <span class="metric-label">RESPEL en Almacén</span>
+                                <h3 class="metric-value" id="stat-stored-weight">0.0 kg</h3>
+                                <p class="metric-sub" id="stat-stored-count">0 entregas pendientes</p>
+                            </div>
+                        </div>
+
+                        <div class="metric-card">
+                            <div class="card-icon warning">
+                                <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                            </div>
+                            <div class="metric-info">
+                                <span class="metric-label">Próxima Recolección</span>
+                                <h3 class="metric-value" id="stat-next-collection">En 3 días</h3>
+                                <p class="metric-sub">Frecuencia Semanal</p>
+                            </div>
+                        </div>
+
+                        <div class="metric-card">
+                            <div class="card-icon success">
+                                <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                            </div>
+                            <div class="metric-info">
+                                <span class="metric-label">Mis Capacitaciones</span>
+                                <h3 class="metric-value" id="stat-completed-trainings">0 / 4</h3>
+                                <p class="metric-sub" id="stat-training-percentage">0% Completado</p>
+                            </div>
+                        </div>
+
+                        <div class="metric-card admin-only-block">
+                            <div class="card-icon info" style="background: rgba(0, 75, 156, 0.1); color: var(--color-primary);">
+                                <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                            </div>
+                            <div class="metric-info">
+                                <span class="metric-label">Gasto Estimado RESPEL</span>
+                                <h3 class="metric-value" id="stat-stored-cost">$0</h3>
+                                <p class="metric-sub" id="stat-stored-cost-sub">En almacén temporal</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cuadrícula de gráficos y recientes -->
+                    <div class="dashboard-grid">
+                        <!-- Widget de gráfico -->
+                        <div class="dashboard-widget double-span">
+                            <div class="widget-header">
+                                <h4>Generación de RESPEL por Tipo</h4>
+                                <span class="badge" id="chart-timeframe">Histórico General</span>
+                            </div>
+                            <div class="chart-container-wrapper">
+                                <div class="chart-legend" id="chart-legend-list">
+                                    <!-- Poblado por JS -->
+                                </div>
+                                <div class="custom-chart-area">
+                                    <div class="svg-chart-container">
+                                        <svg viewBox="0 0 200 200" class="donut-chart" id="dashboard-donut-chart">
+                                            <circle class="donut-bg" cx="100" cy="100" r="70" fill="none" stroke-width="24"></circle>
+                                            <!-- Segmentos de colores inyectados dinámicamente por JS -->
+                                        </svg>
+                                        <div class="donut-center-text">
+                                            <span class="donut-number" id="donut-total-weight">0 kg</span>
+                                            <span class="donut-sub">Total</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Lista de barras de residuos por área -->
+                        <div class="dashboard-widget">
+                            <div class="widget-header">
+                                <h4>Residuos por Área</h4>
+                            </div>
+                            <div class="bar-chart-list" id="dashboard-areas-bar-list">
+                                <!-- Poblado dinámicamente por JS -->
+                            </div>
+                        </div>
+
+                        <!-- Envíos recientes -->
+                        <div class="dashboard-widget double-span">
+                            <div class="widget-header">
+                                <h4>Últimos Reportes Generados</h4>
+                                <button class="btn-link" onclick="switchView('history')">Ver todo</button>
+                            </div>
+                            <div class="recent-list-container">
+                                <ul class="recent-list" id="dashboard-recent-reports">
+                                    <!-- Poblado dinámicamente por JS -->
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Widget de alertas activas -->
+                        <div class="dashboard-widget">
+                            <div class="widget-header">
+                                <h4>Alertas del Sistema</h4>
+                            </div>
+                            <div class="alerts-list" id="dashboard-alerts-list">
+                                <!-- Notificaciones dinámicas -->
+                                <div class="alert-item alert-info">
+                                    <div class="alert-indicator"></div>
+                                    <div class="alert-content">
+                                        <h5>Próximo Despacho</h5>
+                                        <p>Empresa gestora realiza recolección todos los viernes.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Widget de Agenda Ambiental -->
+                        <div class="dashboard-widget">
+                            <div class="widget-header">
+                                <h4>Agenda Ambiental (Próximos 15 días)</h4>
+                                <button class="btn-link" onclick="switchView('calendar')">Ver Calendario</button>
+                            </div>
+                            <div class="agenda-list" id="dashboard-agenda-list" style="display: flex; flex-direction: column; gap: 8px; max-height: 220px; overflow-y: auto;">
+                                <!-- Poblado dinámicamente por JS -->
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- VISTA B: FORMULARIO DE REPORTE -->
+                <section id="view-report" class="content-view">
+                    <div class="narrow-container">
+                        <div class="form-card">
+                            <div class="form-card-header">
+                                <h3>Formulario de Entrega Diaria</h3>
+                                <p>Registre la cantidad de residuos peligrosos generados en su turno de trabajo.</p>
+                            </div>
+                            
+                            <form id="report-respel-form">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="report-datetime">Fecha</label>
+                                        <input type="datetime-local" id="report-datetime" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="report-bodega">Bodega</label>
+                                        <select id="report-bodega" required>
+                                            <option value="Centro de acopio" selected>Centro de acopio</option>
+                                            <option value="Shut de RESPEL">Shut de RESPEL</option>
+                                            <option value="Bodega 1 (Principal)">Bodega 1 (Principal)</option>
+                                            <option value="Bodega 2 (Auxiliar)">Bodega 2 (Auxiliar)</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="report-waste-name">Nombre del Residuo</label>
+                                        <input type="text" id="report-waste-name" list="waste-suggestions" placeholder="Ej: Aceite hidráulico usado, soda cáustica..." required>
+                                        <datalist id="waste-suggestions">
+                                            <option value="Aceite de motor usado"></option>
+                                            <option value="Aceite hidráulico usado"></option>
+                                            <option value="Ácido sulfúrico agotado"></option>
+                                            <option value="Ácido nítrico concentrado"></option>
+                                            <option value="Soda cáustica gastada"></option>
+                                            <option value="Envases plásticos de reactivos"></option>
+                                            <option value="Estopas impregnadas de solvente"></option>
+                                            <option value="Lámparas fluorescentes rotas"></option>
+                                            <option value="Filtros de combustible usados"></option>
+                                        </datalist>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="report-type">Tipo</label>
+                                        <select id="report-type" required>
+                                            <option value="" disabled selected>Seleccione el tipo...</option>
+                                            <option value="Hidrocarburos">Hidrocarburos (Aceites, combustibles)</option>
+                                            <option value="Ácidos">Ácidos (Corrosivos pH &lt; 2)</option>
+                                            <option value="Básicos">Básicos (Alcalinos pH &gt; 12)</option>
+                                            <option value="Envases contaminados">Envases Contaminados</option>
+                                            <option value="Sólidos impregnados">Sólidos Impregnados (Trapos, EPPs)</option>
+                                            <option value="Luminarias">Luminarias (Mercuriales)</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="report-weight">Cantidad</label>
+                                        <div class="input-wrapper-unit">
+                                            <input type="number" id="report-weight" step="0.01" min="0.05" max="1000" placeholder="0.00" required>
+                                            <span class="input-unit">kg</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="report-corriente">Corriente</label>
+                                        <select id="report-corriente" required>
+                                            <option value="" disabled selected>Seleccione tipo de residuo primero...</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="report-physical-state">Estado</label>
+                                        <select id="report-physical-state" required>
+                                            <option value="Líquido" selected>Líquido</option>
+                                            <option value="Sólido">Sólido</option>
+                                            <option value="Gaseoso">Gaseoso</option>
+                                            <option value="Lodo">Lodo</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="report-area">Área de Procedencia</label>
+                                        <select id="report-area" required>
+                                            <option value="" disabled selected>Seleccione el área...</option>
+                                            <option value="Producción">Producción</option>
+                                            <option value="Mantenimiento">Mantenimiento</option>
+                                            <option value="Laboratorio">Laboratorio</option>
+                                            <option value="Logística">Logística</option>
+                                            <option value="Oficinas">Oficinas</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group" style="grid-column: span 2;">
+                                        <label for="report-operator">Operador que Entrega</label>
+                                        <input type="text" id="report-operator" placeholder="Nombre completo" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="report-observations">Observaciones y Estado del Empaque (Opcional)</label>
+                                    <textarea id="report-observations" rows="3" placeholder="Ej: Bidón cerrado correctamente, bolsa roja etiquetada..."></textarea>
+                                </div>
+
+                                <div class="form-actions">
+                                    <button type="button" class="btn-secondary" onclick="switchView('dashboard')">Cancelar</button>
+                                    <button type="submit" class="btn-primary">
+                                        <span>Registrar Reporte</span>
+                                        <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2.5" fill="none"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- VISTA C: TABLA DE HISTORIAL -->
+                <section id="view-history" class="content-view">
+                    <!-- Cinta de filtros -->
+                    <div class="filter-ribbon">
+                        <div class="filter-group">
+                            <label for="filter-search">Buscar</label>
+                            <input type="text" id="filter-search" placeholder="Buscar por operador u observaciones...">
+                        </div>
+                        <div class="filter-group">
+                            <label for="filter-area">Área</label>
+                            <select id="filter-area">
+                                <option value="all">Todas las Áreas</option>
+                                <option value="Producción">Producción</option>
+                                <option value="Mantenimiento">Mantenimiento</option>
+                                <option value="Laboratorio">Laboratorio</option>
+                                <option value="Logística">Logística</option>
+                                <option value="Oficinas">Oficinas</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label for="filter-type">Tipo</label>
+                            <select id="filter-type">
+                                <option value="all">Todos los Tipos</option>
+                                <option value="Hidrocarburos">Hidrocarburos</option>
+                                <option value="Ácidos">Ácidos</option>
+                                <option value="Básicos">Básicos</option>
+                                <option value="Envases contaminados">Envases Contaminados</option>
+                                <option value="Sólidos impregnados">Sólidos Impregnados</option>
+                                <option value="Luminarias">Luminarias</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label for="filter-status">Estado</label>
+                            <select id="filter-status">
+                                <option value="all">Todos los Estados</option>
+                                <option value="stored">Almacenado Temporal</option>
+                                <option value="collected">Recolectado</option>
+                            </select>
+                        </div>
+                        <div class="filter-actions-inline">
+                            <button id="btn-export-csv" class="btn-secondary" title="Exportar Filtros actuales a CSV">
+                                <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                                <span>Exportar</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Barra de selección y acción del administrador -->
+                    <div id="admin-collection-bar" class="admin-action-bar hidden">
+                        <div class="action-info">
+                            <span class="select-count" id="collection-select-count">0 filas seleccionadas</span>
+                            <span class="select-weight" id="collection-select-weight">Total: 0.0 kg</span>
+                            <span class="select-weight" id="collection-select-cost" style="border-left: 1px solid rgba(255, 255, 255, 0.15); padding-left: 20px;">Costo: $0 COP</span>
+                        </div>
+                        <button id="btn-open-collection-modal" class="btn-accent">
+                            <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2.5" fill="none"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+                            <span>Registrar Recolección Semanal</span>
+                        </button>
+                    </div>
+
+                    <!-- History Tarjeta de tabla -->
+                    <div class="table-card">
+                        <div class="table-responsive">
+                            <table id="history-table">
+                                <thead>
+                                    <tr>
+                                        <th class="col-checkbox admin-only-cell"><input type="checkbox" id="select-all-checkbox"></th>
+                                        <th>Fecha</th>
+                                        <th>Bodega</th>
+                                        <th>Nombre del Residuo</th>
+                                        <th>Cantidad</th>
+                                        <th>Tipo</th>
+                                        <th>Corriente</th>
+                                        <th>Estado</th>
+                                        <th class="admin-only-cell">Costo Est.</th>
+                                        <th>Estado de Gestión</th>
+                                        <th class="admin-only-cell">Control Ubicación</th>
+                                        <th>Detalles de Recolección</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="history-table-body">
+                                    <!-- Poblado dinámicamente por JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="table-empty-state" id="table-empty-state">
+                            <svg viewBox="0 0 24 24" width="48" height="48" stroke="currentColor" stroke-width="1.5" fill="none"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                            <p>No se encontraron registros de residuos con los filtros seleccionados.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- VISTA D: CAPACITACIONES -->
+                <section id="view-trainings" class="content-view">
+                    <div class="trainings-intro">
+                        <h3>Módulos de Formación en Gestión de RESPEL</h3>
+                        <p>Complete las siguientes capacitaciones obligatorias y apruebe sus respectivos exámenes para obtener sus certificaciones digitales correspondientes.</p>
+                    </div>
+                    
+                    <!-- Filtros por tipo de capacitación -->
+                    <div class="category-filters" style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 12px;">
+                        <button type="button" class="btn-secondary btn-xs active" id="btn-filter-all" onclick="filterCourses('All')" style="padding: 6px 12px; font-weight: 600;">Todos</button>
+                        <button type="button" class="btn-secondary btn-xs" id="btn-filter-presentations" onclick="filterCourses('Presentación')" style="padding: 6px 12px; font-weight: 600;">Presentaciones</button>
+                        <button type="button" class="btn-secondary btn-xs" id="btn-filter-awareness" onclick="filterCourses('Sensibilización')" style="padding: 6px 12px; font-weight: 600;">Sensibilizaciones</button>
+                        <button type="button" class="btn-secondary btn-xs" id="btn-filter-infographics" onclick="filterCourses('Infografía')" style="padding: 6px 12px; font-weight: 600;">Infografías</button>
+                    </div>
+                    
+                    <div class="courses-grid" id="courses-container">
+                        <!-- 4 Training Courses Inyectado por JS -->
+                    </div>
+
+                    <!-- Panel de administración para agregar cursos de capacitación -->
+                    <div class="form-card admin-only-block" style="margin-top: 40px; max-width: 780px; margin-left: auto; margin-right: auto;">
+                        <div class="form-card-header">
+                            <h3>Crear Nueva Capacitación (Administración)</h3>
+                            <p>Agregue un nuevo curso con diapositivas de aprendizaje y evaluación tipo quiz.</p>
+                        </div>
+                        <form id="course-create-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="new-course-title">Título de la Capacitación</label>
+                                    <input type="text" id="new-course-title" placeholder="Ej: Protocolo de Rotulado SGA Avanzado" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="new-course-desc">Descripción Breve</label>
+                                    <input type="text" id="new-course-desc" placeholder="Ej: Reglas de etiquetado químico." required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row" style="margin-top: 16px; margin-bottom: 16px;">
+                                <div class="form-group">
+                                    <label for="new-course-category">Categoría de la Capacitación</label>
+                                    <select id="new-course-category" required style="padding: 10px 12px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.08); width: 100%; color: #fff; border-radius: 8px; font-size: 13px;">
+                                        <option value="Presentación" selected>Presentación</option>
+                                        <option value="Sensibilización">Sensibilización</option>
+                                        <option value="Infografía">Infografía</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="new-course-file">Archivo de Material de Estudio (Opcional - Imagen, PDF, o Texto)</label>
+                                    <input type="file" id="new-course-file" accept="image/*,application/pdf,text/plain" style="padding: 8px 12px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.08); width: 100%; color: #fff; border-radius: 8px;">
+                                </div>
+                            </div>
+
+                            
+                            <div style="border-top: 1px solid rgba(255,255,255,0.05); padding-top: 16px; margin-top: 16px;">
+                                <h4 style="font-size: 14px; color: var(--color-accent-light); margin-bottom: 12px;">Diapositivas de Estudio (2 Requeridas)</h4>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="new-course-s1-title">Título Diapositiva 1</label>
+                                        <input type="text" id="new-course-s1-title" placeholder="Ej: Fundamentos del SGA" required>
+                                        <label for="new-course-s1-content" style="margin-top: 8px;">Contenido Diapositiva 1</label>
+                                        <textarea id="new-course-s1-content" rows="4" placeholder="Contenido de texto o HTML..." required></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="new-course-s2-title">Título Diapositiva 2</label>
+                                        <input type="text" id="new-course-s2-title" placeholder="Ej: Pictogramas de Peligro" required>
+                                        <label for="new-course-s2-content" style="margin-top: 8px;">Contenido Diapositiva 2</label>
+                                        <textarea id="new-course-s2-content" rows="4" placeholder="Contenido de texto o HTML..." required></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div style="border-top: 1px solid rgba(255,255,255,0.05); padding-top: 16px; margin-top: 16px;">
+                                <h4 style="font-size: 14px; color: var(--color-warning); margin-bottom: 12px;">Quiz de Evaluación (2 Preguntas Requeridas)</h4>
+                                <div class="form-row">
+                                    <!-- Pregunta 1 -->
+                                    <div class="form-group" style="background: rgba(255,255,255,0.01); padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.03);">
+                                        <label for="new-course-q1">Pregunta 1</label>
+                                        <input type="text" id="new-course-q1" placeholder="Ej: ¿Qué significa la llama?" required>
+                                        <label for="new-course-q1-o1" style="margin-top: 8px;">Opción A</label>
+                                        <input type="text" id="new-course-q1-o1" placeholder="Opción A" required>
+                                        <label for="new-course-q1-o2" style="margin-top: 4px;">Opción B</label>
+                                        <input type="text" id="new-course-q1-o2" placeholder="Opción B" required>
+                                        <label for="new-course-q1-o3" style="margin-top: 4px;">Opción C</label>
+                                        <input type="text" id="new-course-q1-o3" placeholder="Opción C" required>
+                                        <label for="new-course-q1-ans" style="margin-top: 8px;">Respuesta Correcta</label>
+                                        <select id="new-course-q1-ans" required style="padding: 8px 12px; font-size: 13px;">
+                                            <option value="0">Opción A</option>
+                                            <option value="1">Opción B</option>
+                                            <option value="2">Opción C</option>
+                                        </select>
+                                    </div>
+                                    <!-- Pregunta 2 -->
+                                    <div class="form-group" style="background: rgba(255,255,255,0.01); padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.03);">
+                                        <label for="new-course-q2">Pregunta 2</label>
+                                        <input type="text" id="new-course-q2" placeholder="Ej: ¿Con qué color se rotulan los ácidos?" required>
+                                        <label for="new-course-q2-o1" style="margin-top: 8px;">Opción A</label>
+                                        <input type="text" id="new-course-q2-o1" placeholder="Opción A" required>
+                                        <label for="new-course-q2-o2" style="margin-top: 4px;">Opción B</label>
+                                        <input type="text" id="new-course-q2-o2" placeholder="Opción B" required>
+                                        <label for="new-course-q2-o3" style="margin-top: 4px;">Opción C</label>
+                                        <input type="text" id="new-course-q2-o3" placeholder="Opción C" required>
+                                        <label for="new-course-q2-ans" style="margin-top: 8px;">Respuesta Correcta</label>
+                                        <select id="new-course-q2-ans" required style="padding: 8px 12px; font-size: 13px;">
+                                            <option value="0">Opción A</option>
+                                            <option value="1">Opción B</option>
+                                            <option value="2">Opción C</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-actions" style="margin-top: 24px; border-top: 1px solid rgba(255,255,255,0.04); padding-top: 16px;">
+                                <button type="submit" class="btn-primary w-full" style="padding: 12px 18px;">
+                                    <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2.5" fill="none" style="margin-right: 6px;"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                    <span>Registrar Nueva Capacitación</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Base de datos de capacitaciones de trabajadores (Administrador solamente) -->
+                    <div class="table-card admin-only-block" id="worker-trainings-directory-card" style="margin-top: 40px; max-width: 820px; margin-left: auto; margin-right: auto; padding: 24px; box-shadow: var(--shadow-lg); background: var(--color-surface-trans);">
+                        <div class="widget-header" style="border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 12px; margin-bottom: 20px;">
+                            <h3 style="font-family: var(--font-heading); font-size: 18px; font-weight: 600; color: #fff; margin: 0 0 6px 0;">Base de Datos de Capacitaciones de Trabajadores</h3>
+                            <p style="font-size: 13px; color: var(--color-text-muted); margin: 0;">Monitoree las evaluaciones realizadas y el progreso de los cursos aprobados por cada trabajador.</p>
+                        </div>
+                        <div class="table-responsive">
+                            <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 13px;">
+                                <thead>
+                                    <tr style="border-bottom: 2px solid rgba(255,255,255,0.1); color: var(--color-accent-light);">
+                                        <th style="padding: 10px 8px;">Trabajador</th>
+                                        <th style="padding: 10px 8px;">Área</th>
+                                        <th style="padding: 10px 8px;">Progreso General</th>
+                                        <th style="padding: 10px 8px; text-align: center;">Acción</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="worker-trainings-table-body">
+                                    <!-- Poblado por JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- VISTA D1: INSPECCIONES -->
+                <section id="view-inspections" class="content-view">
+                    <div class="trainings-intro">
+                        <h3>Inspecciones de Seguridad y Medio Ambiente</h3>
+                        <p>Realice listas de chequeo periódicas de control de RESPEL y visualice el historial de cumplimiento de la planta.</p>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; max-width: 1100px; margin: 0 auto;">
+                        <!-- Formulario de Inspección -->
+                        <div class="form-card" id="inspection-form-container" style="margin: 0; padding: 24px;">
+                            <div class="form-card-header">
+                                <h3>Nueva Inspección de Control</h3>
+                                <p>Complete los siguientes campos obligatorios de la lista de chequeo.</p>
+                            </div>
+                            <form id="inspection-create-form">
+                                <div class="form-group" style="margin-bottom: 16px;">
+                                    <label for="inspection-link-event">Vincular con Inspección Programada</label>
+                                    <select id="inspection-link-event" style="padding: 10px 12px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.08); width: 100%; color: #fff; border-radius: 8px;">
+                                        <option value="default">Ninguna (Lista por defecto)</option>
+                                    </select>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="inspection-area">Área a Inspeccionar</label>
+                                        <select id="inspection-area" required style="padding: 10px 12px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.08); width: 100%; color: #fff; border-radius: 8px;">
+                                            <option value="" disabled selected>Seleccione área...</option>
+                                            <option value="Producción">Producción</option>
+                                            <option value="Mantenimiento">Mantenimiento</option>
+                                            <option value="Laboratorio">Laboratorio</option>
+                                            <option value="Logística">Logística</option>
+                                            <option value="Oficinas">Oficinas</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inspection-date">Fecha y Hora</label>
+                                        <input type="datetime-local" id="inspection-date" required style="padding: 10px 12px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.08); width: 100%; color: #fff; border-radius: 8px;">
+                                    </div>
+                                </div>
+
+                                <div class="form-group" style="margin-top: 12px;">
+                                    <label for="inspection-inspector">Inspector Encargado</label>
+                                    <input type="text" id="inspection-inspector" readonly style="padding: 10px 12px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); width: 100%; color: var(--color-text-muted); border-radius: 8px; cursor: not-allowed;">
+                                </div>
+
+                                <div style="margin-top: 24px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 16px;">
+                                    <h4 style="font-size: 14px; color: var(--color-accent-light); margin-bottom: 16px;">Lista de Verificación</h4>
+                                    
+                                    <div class="checklist-questions" id="inspection-checklist-questions" style="display: flex; flex-direction: column; gap: 16px;">
+                                        <!-- Q1 -->
+                                        <div class="checklist-q-row" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.03); padding-bottom: 8px;">
+                                            <div style="flex: 1; padding-right: 12px;">
+                                                <span style="font-weight: 500; font-size: 13px; display: block; color: #fff;">1. Rotulado SGA</span>
+                                                <span style="font-size: 11px; color: var(--color-text-muted);">Envases químicos/RESPEL debidamente etiquetados.</span>
+                                            </div>
+                                            <div style="display: flex; gap: 8px; flex-shrink: 0;">
+                                                <label class="btn-check-label"><input type="radio" name="check-sga" value="cumple" checked> C</label>
+                                                <label class="btn-check-label"><input type="radio" name="check-sga" value="no-cumple"> NC</label>
+                                            </div>
+                                        </div>
+                                        <!-- Q2 -->
+                                        <div class="checklist-q-row" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.03); padding-bottom: 8px;">
+                                            <div style="flex: 1; padding-right: 12px;">
+                                                <span style="font-weight: 500; font-size: 13px; display: block; color: #fff;">2. Segregación RESPEL</span>
+                                                <span style="font-size: 11px; color: var(--color-text-muted);">Residuos clasificados por compatibilidad química.</span>
+                                            </div>
+                                            <div style="display: flex; gap: 8px; flex-shrink: 0;">
+                                                <label class="btn-check-label"><input type="radio" name="check-segregation" value="cumple" checked> C</label>
+                                                <label class="btn-check-label"><input type="radio" name="check-segregation" value="no-cumple"> NC</label>
+                                            </div>
+                                        </div>
+                                        <!-- Q3 -->
+                                        <div class="checklist-q-row" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.03); padding-bottom: 8px;">
+                                            <div style="flex: 1; padding-right: 12px;">
+                                                <span style="font-weight: 500; font-size: 13px; display: block; color: #fff;">3. Fugas y Fisuras</span>
+                                                <span style="font-size: 11px; color: var(--color-text-muted);">Ausencia de fisuras o derrames en los recipientes.</span>
+                                            </div>
+                                            <div style="display: flex; gap: 8px; flex-shrink: 0;">
+                                                <label class="btn-check-label"><input type="radio" name="check-leaks" value="cumple" checked> C</label>
+                                                <label class="btn-check-label"><input type="radio" name="check-leaks" value="no-cumple"> NC</label>
+                                            </div>
+                                        </div>
+                                        <!-- Q4 -->
+                                        <div class="checklist-q-row" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.03); padding-bottom: 8px;">
+                                            <div style="flex: 1; padding-right: 12px;">
+                                                <span style="font-weight: 500; font-size: 13px; display: block; color: #fff;">4. Orden y Limpieza</span>
+                                                <span style="font-size: 11px; color: var(--color-text-muted);">Área de almacenamiento despejada y libre de obstáculos.</span>
+                                            </div>
+                                            <div style="display: flex; gap: 8px; flex-shrink: 0;">
+                                                <label class="btn-check-label"><input type="radio" name="check-cleanup" value="cumple" checked> C</label>
+                                                <label class="btn-check-label"><input type="radio" name="check-cleanup" value="no-cumple"> NC</label>
+                                            </div>
+                                        </div>
+                                        <!-- Q5 -->
+                                        <div class="checklist-q-row" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.03); padding-bottom: 8px;">
+                                            <div style="flex: 1; padding-right: 12px;">
+                                                <span style="font-weight: 500; font-size: 13px; display: block; color: #fff;">5. Kit Antiderrames</span>
+                                                <span style="font-size: 11px; color: var(--color-text-muted);">Kit antiderrame del sector completo y de fácil acceso.</span>
+                                            </div>
+                                            <div style="display: flex; gap: 8px; flex-shrink: 0;">
+                                                <label class="btn-check-label"><input type="radio" name="check-kit" value="cumple" checked> C</label>
+                                                <label class="btn-check-label"><input type="radio" name="check-kit" value="no-cumple"> NC</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Campos Condicionales en caso de Incumplimiento -->
+                                <div id="non-compliance-fields" style="display: none; border-top: 1px dashed var(--color-error); padding-top: 16px; margin-top: 16px;">
+                                    <h4 style="font-size: 13px; color: var(--color-error); margin-bottom: 12px; display: flex; align-items: center; gap: 6px;">
+                                        ⚠️ Registro de Hallazgo (Requerido)
+                                    </h4>
+                                    <div class="form-group">
+                                        <label for="inspection-finding">Detalles del Hallazgo / Acción Correctiva</label>
+                                        <textarea id="inspection-finding" rows="3" placeholder="Describa el no cumplimiento y la medida correctiva que se debe tomar..."></textarea>
+                                    </div>
+                                    <div class="form-group" style="margin-top: 12px;">
+                                        <label for="inspection-responsible-area">Área Encargada / Responsable de la Corrección</label>
+                                        <select id="inspection-responsible-area" style="padding: 10px 12px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.08); width: 100%; color: #fff; border-radius: 8px;">
+                                            <option value="" disabled selected>Seleccione área responsable...</option>
+                                            <option value="Producción">Producción</option>
+                                            <option value="Mantenimiento">Mantenimiento</option>
+                                            <option value="Laboratorio">Laboratorio</option>
+                                            <option value="Logística">Logística</option>
+                                            <option value="Oficinas">Oficinas</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-actions" style="margin-top: 24px; border-top: 1px solid rgba(255,255,255,0.04); padding-top: 16px;">
+                                    <button type="submit" class="btn-primary w-full" style="padding: 12px 18px;">
+                                        <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2.5" fill="none" style="margin-right: 6px;"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+                                        <span>Guardar Inspección</span>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Panel Informativo de Inspecciones para Jefes de Área -->
+                        <div class="form-card" id="inspection-info-container" style="display: none; margin: 0; padding: 24px; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 8px;">
+                            <div class="form-card-header" style="border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 12px; margin-bottom: 16px;">
+                                <h3 style="font-family: var(--font-heading); font-size: 16px; font-weight: 600; color: #fff; margin: 0;">Controles de Seguridad Programados</h3>
+                                <p style="font-size: 11px; color: var(--color-text-muted); margin: 4px 0 0 0;">Información sobre las inspecciones del período.</p>
+                            </div>
+                            <div style="display: flex; flex-direction: column; gap: 16px;">
+                                <div style="padding: 12px; background: rgba(30,144,255,0.05); border-left: 3px solid var(--color-primary-light); border-radius: 6px;">
+                                    <h4 style="font-size: 13px; color: #fff; margin: 0 0 4px 0;">¿Cómo funciona este módulo?</h4>
+                                    <p style="font-size: 11.5px; color: var(--color-text-muted); margin: 0; line-height: 1.4;">Las inspecciones periódicas son programadas y registradas únicamente por el <strong>Coordinador Ambiental</strong>. Las jefaturas de área pueden consultar los históricos y deben resolver las novedades encontradas en su área correspondiente.</p>
+                                </div>
+                                <div style="padding: 12px; background: rgba(255,255,255,0.02); border-radius: 6px; border: 1px solid rgba(255,255,255,0.04); display: flex; align-items: center; gap: 12px;">
+                                    <span style="font-size: 24px; background: rgba(255,255,255,0.03); padding: 8px; border-radius: 6px;">📋</span>
+                                    <div>
+                                        <span style="font-size: 12.5px; font-weight: 600; color: #fff; display: block;">Inspección Mensual de Control</span>
+                                        <span style="font-size: 11px; color: var(--color-text-muted);">Revisión de diques, kit antiderrames y rotulado SGA.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tabla del Historial de Inspecciones -->
+                        <div class="table-card" style="margin: 0; padding: 24px;">
+                            <div class="widget-header" style="padding: 0 0 12px 0; border-bottom: 1px solid rgba(255,255,255,0.05); margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+                                <div>
+                                    <h3 style="font-family: var(--font-heading); font-size: 16px; font-weight: 600; color: #fff; margin: 0;">Historial de Inspecciones</h3>
+                                    <p style="font-size: 11px; color: var(--color-text-muted); margin: 0;">Listado histórico de chequeos realizados.</p>
+                                </div>
+                                <div style="display: flex; gap: 8px;">
+                                    <select id="filter-inspection-area" style="padding: 6px 10px; font-size: 12px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.08); color: #fff; border-radius: 6px;">
+                                        <option value="All">Todas las Áreas</option>
+                                        <option value="Producción">Producción</option>
+                                        <option value="Mantenimiento">Mantenimiento</option>
+                                        <option value="Laboratorio">Laboratorio</option>
+                                        <option value="Logística">Logística</option>
+                                        <option value="Oficinas">Oficinas</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 12.5px;">
+                                    <thead>
+                                        <tr style="border-bottom: 2px solid rgba(255,255,255,0.1); color: var(--color-accent-light);">
+                                            <th style="padding: 8px 4px;">Fecha</th>
+                                            <th style="padding: 8px 4px;">Área</th>
+                                            <th style="padding: 8px 4px;">Inspector</th>
+                                            <th style="padding: 8px 4px; text-align: center;">Estado</th>
+                                            <th style="padding: 8px 4px; text-align: center;">Detalle</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="inspections-table-body">
+                                        <!-- Poblado por JS -->
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="table-empty-state" id="inspections-empty-state" style="display: none; padding: 30px; text-align: center; color: var(--color-text-muted);">
+                                <svg viewBox="0 0 24 24" width="40" height="40" stroke="currentColor" stroke-width="1.5" fill="none" style="margin-bottom: 8px;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                                <p style="font-size: 13px; margin: 0;">No se registraron inspecciones para esta selección.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sección de Novedades / No Cumplimientos -->
+                    <div class="table-card" id="inspections-findings-card" style="margin-top: 24px; padding: 24px; max-width: 1100px; margin-left: auto; margin-right: auto;">
+                        <div class="widget-header" style="padding: 0 0 12px 0; border-bottom: 1px solid rgba(255,255,255,0.05); margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <h3 style="font-family: var(--font-heading); font-size: 16px; font-weight: 600; color: #fff; margin: 0;">Novedades y Hallazgos Registrados</h3>
+                                <p id="findings-subtitle" style="font-size: 11px; color: var(--color-text-muted); margin: 4px 0 0 0;">Desviaciones encontradas que requieren corrección.</p>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 12.5px;">
+                                <thead>
+                                    <tr style="border-bottom: 2px solid rgba(255,255,255,0.1); color: var(--color-accent-light);">
+                                        <th style="padding: 8px 4px;">Fecha Hallazgo</th>
+                                        <th style="padding: 8px 4px;">Área Responsable</th>
+                                        <th style="padding: 8px 4px;">Descripción de la Novedad</th>
+                                        <th style="padding: 8px 4px; text-align: center;">Estado</th>
+                                        <th style="padding: 8px 4px; text-align: center;">Acción</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="findings-table-body">
+                                    <!-- Poblado por JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="table-empty-state" id="findings-empty-state" style="display: none; padding: 30px; text-align: center; color: var(--color-text-muted);">
+                            <svg viewBox="0 0 24 24" width="40" height="40" stroke="currentColor" stroke-width="1.5" fill="none" style="margin-bottom: 8px;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                            <p style="font-size: 13px; margin: 0;">No se registran novedades pendientes en el sistema.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- VISTA D2: CALENDARIO AMBIENTAL -->
+                <section id="view-calendar" class="content-view">
+                    <div class="trainings-intro">
+                        <h3>Calendario de Gestión Ambiental</h3>
+                        <p>Visualice efemérides ambientales internacionales y programe recordatorios operativos (recolecciones, inspecciones y reuniones).</p>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; max-width: 1100px; margin: 0 auto; align-items: start;">
+                        <!-- Calendario Interactivo -->
+                        <div class="table-card" style="margin: 0; padding: 24px;">
+                            <div class="calendar-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                                <button type="button" onclick="changeCalendarMonth(-1)" class="btn-secondary btn-xs" style="padding: 6px 12px;">« Anterior</button>
+                                <h3 id="calendar-month-year" style="font-family: var(--font-heading); font-size: 16px; font-weight: 700; color: #fff; margin: 0;">Julio 2026</h3>
+                                <button type="button" onclick="changeCalendarMonth(1)" class="btn-secondary btn-xs" style="padding: 6px 12px;">Siguiente »</button>
+                            </div>
+                            
+                            <!-- Días de la semana -->
+                            <div class="calendar-weekdays-grid" style="display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; font-weight: 700; font-size: 12px; color: var(--color-accent-light); margin-bottom: 8px;">
+                                <div>Lun</div><div>Mar</div><div>Mié</div><div>Jue</div><div>Vie</div><div>Sáb</div><div>Dom</div>
+                            </div>
+                            
+                            <!-- Días del Mes -->
+                            <div id="calendar-days-grid" style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; text-align: center;">
+                                <!-- Poblado dinámicamente por JS -->
+                            </div>
+                            
+                            <!-- Leyenda de Iconos -->
+                            <div class="calendar-legend" style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 12px; font-size: 11.5px; color: var(--color-text-muted);">
+                                <div style="display: flex; align-items: center; gap: 6px;"><span>🌍</span> Efeméride Ambiental</div>
+                                <div style="display: flex; align-items: center; gap: 6px;"><span>🕵️‍♂️</span> Inspección</div>
+                                <div style="display: flex; align-items: center; gap: 6px;"><span>♻️</span> Recolección RESPEL</div>
+                                <div style="display: flex; align-items: center; gap: 6px;"><span>📚</span> Capacitación</div>
+                                <div style="display: flex; align-items: center; gap: 6px;"><span>🤝</span> Reunión / Evento</div>
+                            </div>
+                        </div>
+
+                        <!-- Lista de eventos y Formulario (Admin) -->
+                        <div style="display: flex; flex-direction: column; gap: 24px;">
+                            <!-- Eventos del Mes -->
+                            <div class="table-card" style="margin: 0; padding: 24px;">
+                                <div class="widget-header" style="border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 10px; margin-bottom: 16px;">
+                                    <h3 style="font-family: var(--font-heading); font-size: 15px; font-weight: 600; color: #fff; margin: 0;">Eventos de este Mes</h3>
+                                </div>
+                                <div id="calendar-events-list" style="display: flex; flex-direction: column; gap: 10px; max-height: 200px; overflow-y: auto;">
+                                    <!-- Poblado por JS -->
+                                </div>
+                            </div>
+
+                            <!-- Agregar Evento Form (Admin Only) -->
+                            <div class="form-card admin-only-block" style="margin: 0; padding: 24px;">
+                                <div class="form-card-header">
+                                    <h3>Programar Recordatorio</h3>
+                                    <p>Añada un nuevo evento operativo al calendario ambiental.</p>
+                                </div>
+                                <form id="calendar-event-form">
+                                    <div class="form-group">
+                                        <label for="event-title">Título del Evento</label>
+                                        <input type="text" id="event-title" placeholder="Ej: Recolección Semanal Lito" required style="padding: 10px 12px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.08); width: 100%; color: #fff; border-radius: 8px;">
+                                    </div>
+                                    <div class="form-row" style="margin-top: 12px;">
+                                        <div class="form-group">
+                                            <label for="event-date">Fecha</label>
+                                            <input type="date" id="event-date" required style="padding: 10px 12px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.08); width: 100%; color: #fff; border-radius: 8px;">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="event-type">Tipo de Evento</label>
+                                            <select id="event-type" required style="padding: 10px 12px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.08); width: 100%; color: #fff; border-radius: 8px;">
+                                                <option value="efemeride">Efeméride Ambiental</option>
+                                                <option value="inspeccion">Inspección</option>
+                                                <option value="recoleccion">Recolección RESPEL</option>
+                                                <option value="capacitacion">Capacitación</option>
+                                                <option value="reunion">Reunión / Evento</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" style="margin-top: 12px;">
+                                        <label for="event-desc">Descripción Breve</label>
+                                        <input type="text" id="event-desc" placeholder="Ej: Visita de inspección de la CAR." required style="padding: 10px 12px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.08); width: 100%; color: #fff; border-radius: 8px;">
+                                    </div>
+                                    <div class="form-group" id="event-checklist-group" style="display: none; margin-top: 12px;">
+                                        <label for="event-checklist">Puntos a Inspeccionar (Checklist - Uno por línea)</label>
+                                        <textarea id="event-checklist" rows="4" placeholder="Ej:&#10;Revisar dique de contención&#10;Verificar rotulado SGA&#10;Inspeccionar kit antiderrames" style="padding: 10px 12px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.08); width: 100%; color: #fff; border-radius: 8px; font-family: var(--font-body); font-size: 13px;"></textarea>
+                                    </div>
+                                    <div class="form-actions" style="margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.04); padding-top: 12px;">
+                                        <button type="submit" class="btn-primary w-full" style="padding: 10px 14px;">
+                                            <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none" style="margin-right: 6px;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line><line x1="12" y1="14" x2="12" y2="18"></line><line x1="10" y1="16" x2="14" y2="16"></line></svg>
+                                            <span>Agendar Recordatorio</span>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- VISTA E: ANÁLISIS MENSUAL/ANUAL -->
+                <section id="view-analytics" class="content-view">
+                    <!-- Cinta de selectores de fecha -->
+                    <div class="filter-ribbon">
+                        <div class="filter-group">
+                            <label for="analytics-year">Filtrar por Año</label>
+                            <select id="analytics-year">
+                                <option value="2026" selected>2026</option>
+                                <option value="2025">2025</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label for="analytics-month">Filtrar por Mes</label>
+                            <select id="analytics-month">
+                                <option value="all" selected>Todo el Año (Consolidado)</option>
+                                <option value="0">Enero</option>
+                                <option value="1">Febrero</option>
+                                <option value="2">Marzo</option>
+                                <option value="3">Abril</option>
+                                <option value="4">Mayo</option>
+                                <option value="5">Junio</option>
+                                <option value="6">Julio</option>
+                                <option value="7">Agosto</option>
+                                <option value="8">Septiembre</option>
+                                <option value="9">Octubre</option>
+                                <option value="10">Noviembre</option>
+                                <option value="11">Diciembre</option>
+                            </select>
+                        </div>
+                        <div class="filter-actions-inline" style="display: flex; gap: 10px; align-items: center;">
+                            <span class="badge badge-accent" id="analytics-period-badge">Año 2026</span>
+                            <button id="btn-custom-report-trigger" class="btn-accent btn-xs" onclick="openCustomReportModal()">
+                                <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                                <span>Generar Informe a la Medida</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Cuadrícula de métricas para el período seleccionado -->
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <div class="card-icon info">
+                                <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                            </div>
+                            <div class="metric-info">
+                                <span class="metric-label">Peso Generado en Período</span>
+                                <h3 class="metric-value" id="analytics-total-weight">0.0 kg</h3>
+                                <p class="metric-sub" id="analytics-delivery-count">0 entregas en total</p>
+                            </div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="card-icon success">
+                                <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+                            </div>
+                            <div class="metric-info">
+                                <span class="metric-label">Residuos Retirados (Gestor)</span>
+                                <h3 class="metric-value" id="analytics-collected-weight">0.0 kg</h3>
+                                <p class="metric-sub" id="analytics-collection-rate">0% tasa de retiro</p>
+                            </div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="card-icon warning">
+                                <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                            </div>
+                            <div class="metric-info">
+                                <span class="metric-label">Promedio por Entrega</span>
+                                <h3 class="metric-value" id="analytics-average-weight">0.0 kg</h3>
+                                <p class="metric-sub">Generación por lote</p>
+                            </div>
+                        </div>
+
+                        <div class="metric-card">
+                            <div class="card-icon info" style="background: rgba(245, 158, 11, 0.1); color: var(--color-warning);">
+                                <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                            </div>
+                            <div class="metric-info">
+                                <span class="metric-label">Gasto en Disposición</span>
+                                <h3 class="metric-value" id="analytics-total-cost">$0</h3>
+                                <p class="metric-sub">Para el período filtrado</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Charts Grid -->
+                    <div class="dashboard-grid">
+                        <!-- Trend Widget de gráfico (Year View) -->
+                        <div class="dashboard-widget double-span" id="analytics-trend-widget">
+                            <div class="widget-header">
+                                <h4 id="analytics-trend-title">Tendencia de Generación Mensual (kg)</h4>
+                            </div>
+                            <div class="trend-chart-wrapper">
+                                <div class="trend-bars-container" id="analytics-trend-bars">
+                                    <!-- Dynamic vertical bars rendered by JS -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Type chart widget -->
+                        <div class="dashboard-widget" id="analytics-type-widget">
+                            <div class="widget-header">
+                                <h4>Distribución por Tipo de RESPEL</h4>
+                            </div>
+                            <div class="chart-container-wrapper" style="flex-direction: column; justify-content: center; gap: 15px;">
+                                <div class="svg-chart-container" style="width: 120px; height: 120px;">
+                                    <svg viewBox="0 0 200 200" class="donut-chart" id="analytics-donut-chart">
+                                        <circle class="donut-bg" cx="100" cy="100" r="70" fill="none" stroke-width="24"></circle>
+                                    </svg>
+                                    <div class="donut-center-text">
+                                        <span class="donut-number" id="analytics-donut-total">0 kg</span>
+                                        <span class="donut-sub">Período</span>
+                                    </div>
+                                </div>
+                                <div class="chart-legend w-full" id="analytics-legend-list" style="min-width: 0;">
+                                    <!-- Inyectado por JS -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Area bar chart widget -->
+                        <div class="dashboard-widget double-span">
+                            <div class="widget-header">
+                                <h4>Generación por Área en el Período</h4>
+                            </div>
+                            <div class="bar-chart-list" id="analytics-areas-bar-list" style="justify-content: flex-start; gap: 12px; padding: 10px 0;">
+                                <!-- Inyectado por JS -->
+                            </div>
+                        </div>
+
+                        <!-- General Insights -->
+                        <div class="dashboard-widget">
+                            <div class="widget-header">
+                                <h4>Resumen Analítico</h4>
+                            </div>
+                            <div class="alerts-list" id="analytics-insights-container">
+                                <!-- Insight message injected by JS -->
+                            </div>
+                        </div>
+
+                        <!-- Panel Comparativo -->
+                        <div class="dashboard-widget double-span" id="analytics-comparison-widget">
+                            <div class="widget-header">
+                                <h4>Comparativa con el Período Anterior</h4>
+                                <span class="badge badge-accent" id="analytics-comparison-label">vs Periodo Anterior</span>
+                            </div>
+                            <div id="analytics-comparison-content">
+                                <!-- Dynamic comparison cards injected by JS -->
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- VIEW F: INCIDENTS & SPILLS LOG -->
+                <section id="view-incidents" class="content-view">
+                    <div class="narrow-container" style="max-width: 720px;">
+                        <!-- Incident Report Form Card -->
+                        <div class="form-card" style="margin-bottom: 24px;">
+                            <div class="form-card-header">
+                                <h3>Reportar Incidente o Derrame de Químicos</h3>
+                                <p>Registre de forma obligatoria cualquier derrame, fuga o descontrol de sustancias peligrosas.</p>
+                            </div>
+                            <form id="incident-report-form">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="inc-datetime">Fecha y Hora del Suceso</label>
+                                        <input type="datetime-local" id="inc-datetime" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inc-area">Área del Incidente</label>
+                                        <select id="inc-area" required>
+                                            <option value="" disabled selected>Seleccione el área...</option>
+                                            <option value="Producción">Producción</option>
+                                            <option value="Mantenimiento">Mantenimiento</option>
+                                            <option value="Laboratorio">Laboratorio</option>
+                                            <option value="Logística">Logística</option>
+                                            <option value="Oficinas">Oficinas</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="inc-substance">Sustancia Involucrada</label>
+                                        <select id="inc-substance" required>
+                                            <option value="" disabled selected>Seleccione sustancia...</option>
+                                            <option value="Hidrocarburos">Hidrocarburos (Aceite, combustible)</option>
+                                            <option value="Ácidos">Ácido Corrosivo</option>
+                                            <option value="Básicos">Base Corrosiva (Alcalina)</option>
+                                            <option value="Otros">Otros Reactivos/Químicos</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inc-volume">Volumen Estimado (Litros)</label>
+                                        <div class="input-wrapper-unit">
+                                            <input type="number" id="inc-volume" step="0.1" min="0.1" max="500" placeholder="0.0" required>
+                                            <span class="input-unit">L</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>¿Se utilizó Kit de Control de Derrames?</label>
+                                    <div class="demo-buttons" style="gap: 20px;">
+                                        <label class="quiz-option-label" style="flex: 1; justify-content: center; padding: 8px;">
+                                            <input type="radio" name="inc-kit" value="Sí" checked required> <span>Sí</span>
+                                        </label>
+                                        <label class="quiz-option-label" style="flex: 1; justify-content: center; padding: 8px;">
+                                            <input type="radio" name="inc-kit" value="No" required> <span>No</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inc-desc">Descripción del Suceso</label>
+                                    <textarea id="inc-desc" rows="2" placeholder="Describa cómo ocurrió el incidente..." required></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inc-action">Acción de Mitigación Realizada</label>
+                                    <textarea id="inc-action" rows="2" placeholder="Ej: Se colocaron cordones absorbentes, se esparció neutralizante y se recolectó en bolsa roja..." required></textarea>
+                                </div>
+                                <div class="form-actions">
+                                    <button type="submit" class="btn-accent w-full" style="padding: 12px 18px;">
+                                        <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2.5" fill="none"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                        <span>Registrar Incidente</span>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Tarjeta de registro de incidentes -->
+                    <div class="table-card">
+                        <div class="widget-header" style="padding: 20px 24px 10px 24px;">
+                            <h4>Registro de Incidentes y Fugas Controladas</h4>
+                        </div>
+                        <div class="table-responsive">
+                            <table id="incidents-table">
+                                <thead>
+                                    <tr>
+                                        <th>Fecha y Hora</th>
+                                        <th>Área</th>
+                                        <th>Sustancia</th>
+                                        <th>Volumen (L)</th>
+                                        <th>Kit Utilizado</th>
+                                        <th>Estado</th>
+                                        <th>Detalles de Mitigación / Descripción</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="incidents-table-body">
+                                    <!-- Inyectado por JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- VISTA G: BIBLIOTECA DE FICHAS DE DATOS DE SEGURIDAD (FDS) -->
+                <section id="view-sds" class="content-view">
+                    <div class="trainings-intro">
+                        <h3>Biblioteca Digital de Fichas de Datos de Seguridad (FDS)</h3>
+                        <p>Hojas de seguridad rápidas de acuerdo con el Sistema Globalmente Armonizado (SGA) para consulta en caso de manipulación o emergencias químicas.</p>
+                    </div>
+
+                    <div class="courses-grid" id="sds-grid-container">
+                        <!-- Poblado por JS -->
+                    </div>
+
+                    <!-- Panel de administración para cargar FDS (Administrador solamente) -->
+                    <div class="form-card admin-only-block" style="margin-top: 40px; max-width: 780px; margin-left: auto; margin-right: auto; padding: 24px; box-shadow: var(--shadow-lg); background: var(--color-surface-trans);">
+                        <div class="form-card-header" style="margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 12px;">
+                            <h3 style="font-family: var(--font-heading); font-size: 18px; font-weight: 600; color: #fff;">Cargar Nueva Ficha de Datos de Seguridad (FDS)</h3>
+                            <p style="font-size: 13px; color: var(--color-text-muted);">Agregue un nuevo documento de seguridad (PDF o Word) a la biblioteca de consulta rápida.</p>
+                        </div>
+                        <form id="sds-upload-form">
+                            <div class="form-row" style="margin-bottom: 16px;">
+                                <div class="form-group">
+                                    <label for="new-sds-title">Título de la Sustancia / FDS</label>
+                                    <input type="text" id="new-sds-title" placeholder="Ej: FDS - Alcohol Isopropílico" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="new-sds-sub">Descripción Corta / Advertencia</label>
+                                    <input type="text" id="new-sds-sub" placeholder="Ej: Líquido inflamable y corrosivo" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row" style="margin-bottom: 16px;">
+                                <div class="form-group">
+                                    <label for="new-sds-cas">Número CAS</label>
+                                    <input type="text" id="new-sds-cas" placeholder="Ej: 67-63-0" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="new-sds-file">Archivo de FDS (PDF o Word)</label>
+                                    <input type="file" id="new-sds-file" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" required style="padding: 8px 12px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.08); width: 100%; color: #fff; border-radius: 8px;">
+                                </div>
+                            </div>
+
+                            <div class="form-group" style="margin-bottom: 24px;">
+                                <label style="margin-bottom: 8px; display: block;">Seleccionar Pictogramas de Peligro (SGA)</label>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; background: rgba(0,0,0,0.2); padding: 12px; border-radius: 8px;">
+                                    <label style="display: flex; align-items: center; gap: 8px; font-size: 13px; cursor: pointer; color: var(--color-text-main);">
+                                        <input type="checkbox" name="new-sds-picto" value="Inflamable"> 🔥 Inflamable
+                                    </label>
+                                    <label style="display: flex; align-items: center; gap: 8px; font-size: 13px; cursor: pointer; color: var(--color-text-main);">
+                                        <input type="checkbox" name="new-sds-picto" value="Corrosivo"> 🧪 Corrosivo
+                                    </label>
+                                    <label style="display: flex; align-items: center; gap: 8px; font-size: 13px; cursor: pointer; color: var(--color-text-main);">
+                                        <input type="checkbox" name="new-sds-picto" value="Toxicidad Aguda"> ⚠️ Toxicidad Aguda
+                                    </label>
+                                    <label style="display: flex; align-items: center; gap: 8px; font-size: 13px; cursor: pointer; color: var(--color-text-main);">
+                                        <input type="checkbox" name="new-sds-picto" value="Medio Ambiente"> 🐟 Medio Ambiente
+                                    </label>
+                                    <label style="display: flex; align-items: center; gap: 8px; font-size: 13px; cursor: pointer; color: var(--color-text-main);">
+                                        <input type="checkbox" name="new-sds-picto" value="Comburente"> ⭕ Comburente
+                                    </label>
+                                    <label style="display: flex; align-items: center; gap: 8px; font-size: 13px; cursor: pointer; color: var(--color-text-main);">
+                                        <input type="checkbox" name="new-sds-picto" value="Gas Comprimido"> ⚗️ Gas Comprimido
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-actions" style="border-top: 1px solid rgba(255,255,255,0.05); padding-top: 16px; display: flex; gap: 10px;">
+                                <button type="button" id="btn-cancel-sds-edit" class="btn-secondary hidden" onclick="cancelSdsEdit()" style="padding: 12px 18px; flex: 1; border-radius: 8px;">
+                                    Cancelar Edición
+                                </button>
+                                <button type="submit" id="btn-submit-sds" class="btn-primary" style="padding: 12px 18px; display: flex; justify-content: center; align-items: center; gap: 8px; flex: 2;">
+                                    <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2.5" fill="none"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                    <span>Cargar y Registrar Ficha</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+
+                <!-- VISTA H: GESTIÓN DE ACCESOS DE USUARIOS -->
+                <section id="view-users" class="content-view">
+                    <div class="narrow-container" style="max-width: 820px;">
+                        <!-- Tarjeta de creación de usuario -->
+                        <div class="form-card" style="margin-bottom: 24px;">
+                            <div class="form-card-header">
+                                <h3>Crear Nuevo Usuario / Control de Accesos</h3>
+                                <p>Registre usuarios en el sistema y configure si tendrán privilegios de Coordinador (Administrador) o Jefe de Área (Jefatura).</p>
+                            </div>
+                            <form id="user-create-form">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="user-email">Correo Electrónico</label>
+                                        <input type="email" id="user-email" placeholder="usuario@ecomeq.com" required autocomplete="email">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="user-name">Nombre Completo</label>
+                                        <input type="text" id="user-name" placeholder="Nombre y Apellido" required>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="user-password">Contraseña</label>
+                                        <input type="password" id="user-password" placeholder="Mínimo 6 caracteres" required autocomplete="new-password">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="user-role-select">Rol de Acceso</label>
+                                        <select id="user-role-select" required>
+                                            <option value="Jefe de Área" selected>Jefe de Área (Acceso limitado a reportes)</option>
+                                            <option value="Coordinador">Coordinador (Acceso administrativo total)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="user-area-select">Área Procedencia</label>
+                                    <select id="user-area-select" required>
+                                        <option value="Producción" selected>Producción</option>
+                                        <option value="Mantenimiento">Mantenimiento</option>
+                                        <option value="Laboratorio">Laboratorio</option>
+                                        <option value="Logística">Logística</option>
+                                        <option value="Oficinas">Oficinas</option>
+                                        <option value="Medio Ambiente">Medio Ambiente (Administración)</option>
+                                    </select>
+                                </div>
+                                <div class="form-actions">
+                                    <button type="submit" class="btn-primary w-full" style="padding: 12px 18px;">
+                                        <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2.5" fill="none"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><line x1="19" y1="8" x2="19" y2="14"></line><line x1="16" y1="11" x2="22" y2="11"></line></svg>
+                                        <span>Registrar y Asignar Acceso</span>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Tarjeta de registro de directorio de usuarios -->
+                        <div class="table-card">
+                            <div class="widget-header" style="padding: 20px 24px 10px 24px;">
+                                <h4>Directorio Operativo y Roles de Acceso</h4>
+                            </div>
+                            <div class="table-responsive">
+                                <table id="users-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Nombre Completo</th>
+                                            <th>Correo Electrónico</th>
+                                            <th>Área</th>
+                                            <th>Rol de Acceso (Modificable)</th>
+                                            <th>Acción</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="users-table-body">
+                                        <!-- Inyectado por JS -->
+                                    </tbody>
+                                </table>
+                        </div>
+                        
+                        <!-- Configuración de Tarifas Card -->
+                        <div class="form-card" style="margin-top: 24px;">
+                            <div class="form-card-header">
+                                <h3>Configuración de Tarifas de Disposición ($/kg)</h3>
+                                <p>Defina el costo de disposición final por kilogramo para cada categoría de residuo.</p>
+                            </div>
+                            <form id="rates-config-form">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="rate-hydrocarbons">Hidrocarburos</label>
+                                        <div class="input-wrapper-unit">
+                                            <input type="number" id="rate-hydrocarbons" min="0" step="1" required>
+                                            <span class="input-unit">$/kg</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="rate-acids">Ácidos</label>
+                                        <div class="input-wrapper-unit">
+                                            <input type="number" id="rate-acids" min="0" step="1" required>
+                                            <span class="input-unit">$/kg</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row" style="margin-top: 16px;">
+                                    <div class="form-group">
+                                        <label for="rate-basics">Básicos</label>
+                                        <div class="input-wrapper-unit">
+                                            <input type="number" id="rate-basics" min="0" step="1" required>
+                                            <span class="input-unit">$/kg</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="rate-packaging">Envases Contaminados</label>
+                                        <div class="input-wrapper-unit">
+                                            <input type="number" id="rate-packaging" min="0" step="1" required>
+                                            <span class="input-unit">$/kg</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row" style="margin-top: 16px;">
+                                    <div class="form-group">
+                                        <label for="rate-solids">Sólidos Impregnados</label>
+                                        <div class="input-wrapper-unit">
+                                            <input type="number" id="rate-solids" min="0" step="1" required>
+                                            <span class="input-unit">$/kg</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="rate-luminaires">Luminarias</label>
+                                        <div class="input-wrapper-unit">
+                                            <input type="number" id="rate-luminaires" min="0" step="1" required>
+                                            <span class="input-unit">$/kg</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-actions" style="margin-top: 24px;">
+                                    <button type="submit" class="btn-primary w-full" style="padding: 12px 18px;">
+                                        <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2.5" fill="none"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+                                        <span>Guardar Tarifas</span>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- VISTA I: MONITOREO DE ENERGÍA Y AGUA -->
+                <section id="view-resources" class="content-view">
+                    <!-- Tarjetas de métricas y KPIs -->
+                    <div class="metrics-grid">
+                        <!-- KPI Consumo de Energía -->
+                        <div class="metric-card">
+                            <div class="card-icon info" style="background: rgba(0, 75, 156, 0.1); color: var(--color-primary);">
+                                <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+                            </div>
+                            <div class="metric-info" style="width: 100%;">
+                                <span class="metric-label">Consumo de Energía</span>
+                                <h3 class="metric-value" id="res-kpi-energy">0 kWh</h3>
+                                <div style="display: flex; align-items: center; gap: 8px; margin-top: 4px;">
+                                    <span class="metric-sub" id="res-kpi-solar-pct" style="margin-bottom: 0;">Uso Solar: 0%</span>
+                                    <div style="flex: 1; background: rgba(255,255,255,0.08); height: 6px; border-radius: 4px; overflow: hidden; max-width: 100px;">
+                                        <div id="res-kpi-solar-bar" style="background: linear-gradient(90deg, var(--color-primary), var(--color-accent)); width: 0%; height: 100%; transition: width 0.3s;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- KPI Consumo de Agua -->
+                        <div class="metric-card">
+                            <div class="card-icon success" style="background: rgba(112, 176, 220, 0.1); color: var(--color-accent);">
+                                <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path></svg>
+                            </div>
+                            <div class="metric-info">
+                                <span class="metric-label">Consumo de Agua</span>
+                                <h3 class="metric-value" id="res-kpi-water">0 m³</h3>
+                                <p class="metric-sub">Facturación Mensual</p>
+                            </div>
+                        </div>
+
+                        <!-- KPI Eficiencia Energética Real vs Meta -->
+                        <div class="metric-card">
+                            <div class="card-icon warning" style="background: rgba(245, 158, 11, 0.1); color: var(--color-warning);">
+                                <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+                            </div>
+                            <div class="metric-info">
+                                <span class="metric-label">Eficiencia Energía</span>
+                                <h3 class="metric-value" id="res-kpi-energy-rate">0.00</h3>
+                                <p class="metric-sub" id="res-kpi-energy-goal">Meta: 0.00 kWh/u</p>
+                            </div>
+                        </div>
+
+                        <!-- KPI Eficiencia Hídrica Real vs Meta -->
+                        <div class="metric-card">
+                            <div class="card-icon info" style="background: rgba(16, 185, 129, 0.1); color: #10b981;">
+                                <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+                            </div>
+                            <div class="metric-info">
+                                <span class="metric-label">Eficiencia Agua</span>
+                                <h3 class="metric-value" id="res-kpi-water-rate">0.000</h3>
+                                <p class="metric-sub" id="res-kpi-water-goal">Meta: 0.000 m³/u</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Panel de Semáforos Informativos -->
+                    <div class="dashboard-grid" style="margin-bottom: 24px;">
+                        <div class="dashboard-widget double-span">
+                            <div class="widget-header">
+                                <h4>Semáforo Informativo de Cumplimiento Ambiental</h4>
+                                <span class="badge badge-accent">Metas de Consumo vs Producción</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-around; align-items: center; padding: 20px 0; gap: 20px; flex-wrap: wrap;">
+                                <!-- Semáforo Energía -->
+                                <div style="text-align: center; background: rgba(0,0,0,0.2); padding: 20px; border-radius: 12px; border: 1px solid var(--color-surface-border); min-width: 220px; flex: 1;">
+                                    <h5 style="margin-bottom: 12px; font-weight: 600; color: #fff;">Semáforo de Energía</h5>
+                                    <div class="res-semaforo-container">
+                                        <div id="semaforo-energy-light" class="res-semaforo-light semaforo-off"></div>
+                                    </div>
+                                    <div id="semaforo-energy-label" style="font-weight: 700; margin-top: 12px; font-size: 14px;">Cargando...</div>
+                                    <div id="semaforo-energy-detail" style="font-size: 12px; color: var(--color-text-muted); margin-top: 4px;">--</div>
+                                </div>
+
+                                <!-- Semáforo Agua -->
+                                <div style="text-align: center; background: rgba(0,0,0,0.2); padding: 20px; border-radius: 12px; border: 1px solid var(--color-surface-border); min-width: 220px; flex: 1;">
+                                    <h5 style="margin-bottom: 12px; font-weight: 600; color: #fff;">Semáforo de Agua</h5>
+                                    <div class="res-semaforo-container">
+                                        <div id="semaforo-water-light" class="res-semaforo-light semaforo-off"></div>
+                                    </div>
+                                    <div id="semaforo-water-label" style="font-weight: 700; margin-top: 12px; font-size: 14px;">Cargando...</div>
+                                    <div id="semaforo-water-detail" style="font-size: 12px; color: var(--color-text-muted); margin-top: 4px;">--</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Mini gráfico de barras para producción del periodo -->
+                        <div class="dashboard-widget">
+                            <div class="widget-header">
+                                <h4>Producción Mensual</h4>
+                            </div>
+                            <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 8px;">
+                                <div style="font-size: 32px; font-weight: 800; color: #fff;" id="res-production-value">0</div>
+                                <div style="font-size: 12px; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.5px;">Unidades Producidas (Mes Seleccionado)</div>
+                                <div style="width: 100%; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 12px; margin-top: 12px; display: flex; justify-content: space-between; font-size: 11px;">
+                                    <span style="color: var(--color-text-muted);">Mes Activo:</span>
+                                    <strong id="res-production-month" style="color: #fff;">--</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cuadrícula para Formulario de Registro e Historial -->
+                    <div style="display: grid; grid-template-columns: 1fr; gap: 24px;">
+                        <!-- Formulario de Entrada de Lecturas -->
+                        <div class="form-card">
+                            <div class="form-card-header">
+                                <h3>Ingresar Lecturas del Recurso y Producción</h3>
+                                <p>Cargue los datos de lectura del contador al INICIO y FIN de mes para agua, los consumos de energía y la producción mensual.</p>
+                            </div>
+                            <form id="resource-reading-form">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="res-month">Mes del Registro (Año - Mes)</label>
+                                        <input type="month" id="res-month" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="res-production">Producción Mensual (Unidades)</label>
+                                        <input type="number" id="res-production" min="1" step="1" placeholder="Ej: 5000" required>
+                                    </div>
+                                </div>
+
+                                <div style="border-top: 1px solid rgba(255,255,255,0.05); padding-top: 16px; margin-top: 16px;">
+                                    <h4 style="font-size: 14px; color: var(--color-accent-light); margin-bottom: 12px;">Consumos de Energía (kWh)</h4>
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="res-energy-consumed">Energía Consumida del Sistema (kWh)</label>
+                                            <input type="number" id="res-energy-consumed" min="0.01" step="0.01" placeholder="Ej: 1250.45" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="res-energy-generated">Generación de Energía Fotovoltaica (Paneles en kWh)</label>
+                                            <input type="number" id="res-energy-generated" min="0" step="0.01" placeholder="Ej: 350.20" required>
+                                        </div>
+                                    </div>
+                                    <div id="res-form-solar-calc" style="font-size: 12.5px; color: var(--color-accent-light); margin-top: 8px; font-weight: 500;">Participación Solar Proyectada: 0.0%</div>
+                                </div>
+
+                                <div style="border-top: 1px solid rgba(255,255,255,0.05); padding-top: 16px; margin-top: 16px;">
+                                    <h4 style="font-size: 14px; color: var(--color-warning); margin-bottom: 12px;">Consumos de Agua (m³) y Evidencia</h4>
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="res-water-initial">Lectura del Contador al INICIO del Mes (m³)</label>
+                                            <input type="number" id="res-water-initial" min="0" step="0.01" placeholder="Ej: 4500.12" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="res-water-final">Lectura del Contador al FIN del Mes (m³)</label>
+                                            <input type="number" id="res-water-final" min="0" step="0.01" placeholder="Ej: 4585.34" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" style="margin-top: 12px;">
+                                        <label for="res-water-photo">Fotografía de Evidencia del Contador de Agua</label>
+                                        <input type="file" id="res-water-photo" accept="image/*" style="padding: 8px 12px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.08); width: 100%; color: #fff;">
+                                        <div style="font-size: 11px; color: var(--color-text-muted); margin-top: 4px;">Cargue una foto nítida de la carátula del contador. Máximo 800 KB.</div>
+                                    </div>
+                                </div>
+
+                                <div class="form-actions" style="margin-top: 24px; border-top: 1px solid rgba(255,255,255,0.04); padding-top: 16px;">
+                                    <button type="submit" class="btn-primary w-full" style="padding: 12px 18px;">
+                                        <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2.5" fill="none" style="margin-right: 6px;"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                        <span>Registrar Lecturas del Mes</span>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Tabla del Historial de Mediciones -->
+                        <div class="table-card" style="margin-top: 16px;">
+                            <div class="widget-header" style="padding: 20px 24px 10px 24px;">
+                                <h4>Historial de Mediciones Mensuales de Energía y Agua</h4>
+                            </div>
+                            <div class="table-responsive">
+                                <table id="resource-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Mes</th>
+                                            <th>Producción</th>
+                                            <th>Consumo Energía</th>
+                                            <th>Generación Solar (%)</th>
+                                            <th>Agua Inicial/Final</th>
+                                            <th>Consumo Agua</th>
+                                            <th>Semáforo</th>
+                                            <th>Evidencia</th>
+                                            <th class="admin-only-cell">Acción</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="resource-table-body">
+                                        <!-- Poblado dinámicamente por JS -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Formulario de Configuración de Metas (Admin Only) -->
+                        <div class="form-card admin-only-block" style="margin-top: 16px;">
+                            <div class="form-card-header">
+                                <h3>Configuración de Metas de Eficiencia Ambiental</h3>
+                                <p>Defina las metas máximas permitidas de consumo de energía y agua por cada unidad producida.</p>
+                            </div>
+                            <form id="resource-goals-form">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="goal-energy-kpi">Meta de Energía (kWh por unidad producida)</label>
+                                        <div class="input-wrapper-unit">
+                                            <input type="number" id="goal-energy-kpi" min="0.001" step="0.001" required>
+                                            <span class="input-unit">kWh/u</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="goal-water-kpi">Meta de Agua (m³ por unidad producida)</label>
+                                        <div class="input-wrapper-unit">
+                                            <input type="number" id="goal-water-kpi" min="0.0001" step="0.0001" required>
+                                            <span class="input-unit">m³/u</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-actions" style="margin-top: 24px;">
+                                    <button type="submit" class="btn-primary w-full" style="padding: 12px 18px;">
+                                        <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2.5" fill="none"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+                                        <span>Guardar Metas Ambientales</span>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- MODAL 1: ANIMACIÓN DE ÉXITO DE REPORTE -->
+    <div id="modal-success" class="modal-overlay">
+        <div class="modal-card modal-sm success-animation-card">
+            <div class="success-checkmark-wrapper">
+                <svg class="checkmark-svg" viewBox="0 0 52 52">
+                    <circle class="checkmark-circle" cx="26" cy="26" r="25" fill="none"/>
+                    <path class="checkmark-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                </svg>
+            </div>
+            <h3>¡Reporte Registrado!</h3>
+            <p>El residuo peligroso ha sido ingresado al inventario de almacenamiento temporal de forma exitosa.</p>
+            <button class="btn-primary" onclick="closeModal('modal-success')">Entendido</button>
+        </div>
+    </div>
+
+    <!-- MODAL 2: REGISTRAR RECOLECCIÓN SEMANAL (SÓLO ADMIN) -->
+    <div id="modal-collection" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3>Registrar Salida de Residuos (Recolección)</h3>
+                <button class="btn-close-modal" onclick="closeModal('modal-collection')">&times;</button>
+            </div>
+            <form id="collection-form">
+                <div class="modal-body">
+                    <div class="collection-summary-badge">
+                        <div class="summary-item">
+                            <span class="label">Entregas Seleccionadas</span>
+                            <span class="value" id="col-modal-count">0</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="label">Peso Total Despachado</span>
+                            <span class="value" id="col-modal-weight">0.0 kg</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="label">Costo Total Disposición</span>
+                            <span class="value" id="col-modal-cost" style="color: var(--color-warning);">$0 COP</span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="col-company">Empresa Gestora (Recolectora)</label>
+                        <input type="text" id="col-company" placeholder="Ej: Lito S.A., Veolia, Ecológica..." required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="col-manifest">Número de Manifiesto de Carga / Acta de Recolección</label>
+                        <input type="text" id="col-manifest" placeholder="Ej: MAN-2026-8941" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="col-datetime">Fecha y Hora de Recolección</label>
+                        <input type="datetime-local" id="col-datetime" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-secondary" onclick="closeModal('modal-collection')">Cancelar</button>
+                    <button type="submit" class="btn-accent">Confirmar Retiro</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL 3: VISOR DE CAPACITACIONES Y EXAMEN -->
+    <div id="modal-course" class="modal-overlay">
+        <div class="modal-card modal-lg">
+            <div class="modal-header">
+                <h3 id="course-modal-title">Capacitación</h3>
+                <button class="btn-close-modal" onclick="closeModal('modal-course')">&times;</button>
+            </div>
+            <div class="modal-body course-viewer-layout">
+                <!-- Sección de diapositivas -->
+                <div id="course-slide-container" class="slide-container">
+                    <!-- Contenido dinámico de diapositiva inyectado por JS -->
+                </div>
+                
+                <!-- Sección de quiz (oculta inicialmente) -->
+                <div id="course-quiz-container" class="quiz-container hidden">
+                    <div class="quiz-intro">
+                        <h4>Evaluación de Conocimientos</h4>
+                        <p>Responda las preguntas correctamente para recibir su acreditación.</p>
+                    </div>
+                    <form id="quiz-form">
+                        <div id="quiz-questions-list"></div>
+                        <button type="submit" class="btn-primary mt-4">Enviar Respuestas</button>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer flex-justify-between" id="course-viewer-footer">
+                <div class="slide-navigation">
+                    <button id="btn-prev-slide" class="btn-secondary btn-sm">Anterior</button>
+                    <span id="slide-progress" class="slide-progress-text">1 / 5</span>
+                    <button id="btn-next-slide" class="btn-primary btn-sm">Siguiente</button>
+                </div>
+                <button id="btn-start-quiz" class="btn-accent btn-sm hidden">Iniciar Evaluación</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 4: VISTA DE CERTIFICADO -->
+    <div id="modal-certificate" class="modal-overlay">
+        <div class="modal-card certificate-modal-card">
+            <div class="modal-header hide-border">
+                <button class="btn-close-modal dark-close" onclick="closeModal('modal-certificate')">&times;</button>
+            </div>
+            <div class="certificate-wrapper" id="certificate-print-area">
+                <div class="certificate-border">
+                    <div class="certificate-content">
+                        <div class="cert-logo">ECOMEQ</div>
+                        <h2 class="cert-title">Certificado de Aprobación</h2>
+                        <p class="cert-subtext">Otorgado a:</p>
+                        <h1 class="cert-user-name" id="cert-recipient-name">Nombre del Colaborador</h1>
+                        <p class="cert-body">Por haber completado con éxito la capacitación obligatoria sobre:</p>
+                        <h3 class="cert-course-name" id="cert-course-title">Clasificación de RESPEL (SGA)</h3>
+                        <p class="cert-date-text">Acreditado el <span id="cert-issue-date">03 de Junio de 2026</span></p>
+                        <div class="cert-signatures">
+                            <div class="signature-line">
+                                <div class="sig-image">ECOMEQ</div>
+                                <span class="sig-name">Coordinación Ambiental</span>
+                                <span class="sig-title">Ecomeq S.A.</span>
+                            </div>
+                            <div class="signature-line">
+                                <div class="badge-seal">Aprobado</div>
+                                <span class="sig-name">Sistema de Gestión</span>
+                                <span class="sig-title">RESPEL</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer flex-center">
+                <button class="btn-primary" onclick="printCertificate()">
+                    <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+                    <span>Imprimir Certificado</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 4.5: SELECCIONAR FORMATO DE EXPORTACIÓN -->
+    <div id="modal-export-choice" class="modal-overlay">
+        <div class="modal-card modal-sm">
+            <div class="modal-header">
+                <h3>Exportar Datos Filtrados</h3>
+                <button class="btn-close-modal" onclick="closeModal('modal-export-choice')">&times;</button>
+            </div>
+            <div class="modal-body" style="display: flex; flex-direction: column; gap: 16px; align-items: stretch; text-align: center;">
+                <p style="font-size: 13.5px; color: var(--color-text-muted); margin-bottom: 8px;">Seleccione el formato en el cual desea exportar los registros de residuos con el filtro actual:</p>
+                <button class="btn-accent" onclick="triggerFilterCSVExport()" style="padding: 12px;">
+                    <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none" style="margin-right: 6px; display: inline-block; vertical-align: middle;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                    <span style="vertical-align: middle;">Descargar Excel / CSV</span>
+                </button>
+                <button class="btn-primary" onclick="printFilteredHistoryPDF()" style="padding: 12px;">
+                    <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none" style="margin-right: 6px; display: inline-block; vertical-align: middle;"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+                    <span style="vertical-align: middle;">Generar PDF e Imprimir</span>
+                </button>
+            </div>
+            <div class="modal-footer" style="justify-content: center;">
+                <button class="btn-secondary btn-xs" onclick="closeModal('modal-export-choice')">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 5: GENERADOR DE INFORMES PERSONALIZADOS (AD-HOC) -->
+    <div id="modal-custom-report" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3>Generador de Informes a la Medida</h3>
+                <button class="btn-close-modal" onclick="closeModal('modal-custom-report')">&times;</button>
+            </div>
+            <form id="custom-report-form">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="cr-source">Origen de los Datos</label>
+                        <select id="cr-source" required>
+                            <option value="residuos" selected>Entregas de RESPEL</option>
+                            <option value="incidentes">Registro de Incidentes y Derrames</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group" style="margin-top: 12px; margin-bottom: 12px;">
+                        <label for="cr-report-type">Tipo de Consolidación</label>
+                        <select id="cr-report-type" onchange="handleCustomReportTypeChange()" required>
+                            <option value="range" selected>Por Rango de Fechas Exacto</option>
+                            <option value="month">Por Mes Completo</option>
+                            <option value="manifest">Por Intervalo de Recolección (Manifiesto)</option>
+                        </select>
+                    </div>
+
+                    <!-- Filtro por Rango de Fechas -->
+                    <div id="cr-section-range" class="form-row">
+                        <div class="form-group">
+                            <label for="cr-startdate">Fecha Inicial</label>
+                            <input type="date" id="cr-startdate" required style="background: #0a1128 !important; color: #fff !important; color-scheme: dark !important; border: 1px solid rgba(112, 176, 220, 0.2) !important;">
+                        </div>
+                        <div class="form-group">
+                            <label for="cr-enddate">Fecha Final</label>
+                            <input type="date" id="cr-enddate" required style="background: #0a1128 !important; color: #fff !important; color-scheme: dark !important; border: 1px solid rgba(112, 176, 220, 0.2) !important;">
+                        </div>
+                    </div>
+
+                    <!-- Filtro por Mes Completo -->
+                    <div id="cr-section-month" class="form-row hidden">
+                        <div class="form-group" style="grid-column: span 2;">
+                            <label for="cr-month">Seleccionar Mes Completo</label>
+                            <input type="month" id="cr-month" style="background: #0a1128 !important; color: #fff !important; color-scheme: dark !important; border: 1px solid rgba(112, 176, 220, 0.2) !important;">
+                        </div>
+                    </div>
+
+                    <!-- Filtro por Intervalo de Recolección -->
+                    <div id="cr-section-manifest" class="form-row hidden">
+                        <div class="form-group" style="grid-column: span 2;">
+                            <label for="cr-manifest-select">Seleccionar Manifiesto de Recolección (Salida)</label>
+                            <select id="cr-manifest-select">
+                                <option value="" disabled selected>Cargando manifiestos...</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Seleccionar Áreas a Incluir</label>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; background: rgba(0,0,0,0.2); padding: 12px; border-radius: 8px;">
+                            <label style="display: flex; align-items: center; gap: 8px; font-size: 13px; cursor: pointer;">
+                                <input type="checkbox" name="cr-area" value="Producción" checked> Producción
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 8px; font-size: 13px; cursor: pointer;">
+                                <input type="checkbox" name="cr-area" value="Mantenimiento" checked> Mantenimiento
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 8px; font-size: 13px; cursor: pointer;">
+                                <input type="checkbox" name="cr-area" value="Laboratorio" checked> Laboratorio
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 8px; font-size: 13px; cursor: pointer;">
+                                <input type="checkbox" name="cr-area" value="Logística" checked> Logística
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 8px; font-size: 13px; cursor: pointer;">
+                                <input type="checkbox" name="cr-area" value="Oficinas" checked> Oficinas
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-secondary" onclick="closeModal('modal-custom-report')">Cancelar</button>
+                    <button type="button" class="btn-accent" onclick="triggerCustomCSVExport()">Descargar Excel/CSV</button>
+                    <button type="submit" class="btn-primary">Vista Previa e Imprimir</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL 6: MODAL DEL VISOR DE FDS -->
+    <div id="modal-sds-view" class="modal-overlay">
+        <div class="modal-card modal-lg">
+            <div class="modal-header" style="border: none;">
+                <h3 id="sds-modal-title">Ficha de Datos de Seguridad (FDS)</h3>
+                <button class="btn-close-modal" onclick="closeModal('modal-sds-view')">&times;</button>
+            </div>
+            <div class="modal-body" id="sds-modal-body-content" style="background: #e6f2ff; color: black; font-family: sans-serif; border-radius: 8px; padding: 30px;">
+                <!-- Inyectado dinámicamente por JS (FDS limpia e imprimible) -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-secondary" onclick="closeModal('modal-sds-view')">Cerrar</button>
+                <button type="button" class="btn-primary" onclick="printSDS()">
+                    <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+                    <span>Imprimir FDS</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 7: VISTA DE IMPRESIÓN DE INFORME PERSONALIZADO -->
+    <div id="modal-report-preview" class="modal-overlay">
+        <div class="modal-card modal-lg" style="height: 90vh;">
+            <div class="modal-header">
+                <h3>Vista Previa del Informe Personalizado</h3>
+                <button class="btn-close-modal" onclick="closeModal('modal-report-preview')">&times;</button>
+            </div>
+            <div class="modal-body" id="report-print-area" style="background: #e6f2ff; color: black; padding: 40px; font-family: sans-serif; overflow-y: auto;">
+                <!-- Detalles de informe personalizado imprimible inyectados por JS -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-secondary" onclick="closeModal('modal-report-preview')">Cerrar</button>
+                <button type="button" class="btn-primary" onclick="printCustomReport()">
+                    <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+                    <span>Imprimir Reporte</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 8: VISOR DE FOTO DE EVIDENCIA DE AGUA -->
+    <div id="modal-view-photo" class="modal-overlay">
+        <div class="modal-card modal-lg" style="max-width: 600px; height: auto; max-height: 85vh;">
+            <div class="modal-header">
+                <h3>Fotografía de Evidencia de Contador</h3>
+                <button class="btn-close-modal" onclick="closeModal('modal-view-photo')">&times;</button>
+            </div>
+            <div class="modal-body" style="text-align: center; background: rgba(0,0,0,0.2); padding: 20px;">
+                <img id="evidence-modal-img" src="" alt="Evidencia del contador de agua" style="max-width: 100%; max-height: 50vh; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
+                <div style="font-size: 12px; color: var(--color-text-muted); margin-top: 12px;" id="evidence-modal-meta">Lectura del mes de --</div>
+            </div>
+            <div class="modal-footer" style="justify-content: center;">
+                <button type="button" class="btn-secondary" onclick="closeModal('modal-view-photo')">Cerrar Visor</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 9: DETALLE DE CAPACITACIONES DE TRABAJADOR -->
+    <div id="modal-worker-training-detail" class="modal-overlay">
+        <div class="modal-card modal-lg" style="max-width: 720px;">
+            <div class="modal-header">
+                <h3 id="worker-detail-title">Historial de Capacitaciones</h3>
+                <button class="btn-close-modal" onclick="closeModal('modal-worker-training-detail')">&times;</button>
+            </div>
+            <div class="modal-body" style="padding: 20px;">
+                <div id="worker-detail-info" style="margin-bottom: 20px; font-size: 13.5px; background: rgba(255,255,255,0.03); padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05);">
+                    <!-- Poblado por JS -->
+                </div>
+                <div class="table-responsive">
+                    <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 12.5px;">
+                        <thead>
+                            <tr style="border-bottom: 2px solid rgba(255,255,255,0.1); color: var(--color-accent-light);">
+                                <th style="padding: 8px 4px;">Capacitación</th>
+                                <th style="padding: 8px 4px;">Categoría</th>
+                                <th style="padding: 8px 4px;">Estado</th>
+                                <th style="padding: 8px 4px; text-align: center;">Calificación</th>
+                                <th style="padding: 8px 4px; text-align: center;">Certificado</th>
+                            </tr>
+                        </thead>
+                        <tbody id="worker-detail-table-body">
+                            <!-- Poblado por JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-secondary" onclick="closeModal('modal-worker-training-detail')">Cerrar Historial</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 10: DETALLE DE INSPECCIÓN -->
+    <div id="modal-inspection-detail" class="modal-overlay">
+        <div class="modal-card modal-lg" style="max-width: 600px;">
+            <div class="modal-header">
+                <h3>Detalle de Inspección de Control</h3>
+                <button class="btn-close-modal" onclick="closeModal('modal-inspection-detail')">&times;</button>
+            </div>
+            <div class="modal-body" style="padding: 20px;">
+                <div id="inspection-detail-meta" style="margin-bottom: 20px; font-size: 13.5px; background: rgba(255,255,255,0.03); padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05);">
+                    <!-- Poblado por JS -->
+                </div>
+                <h4 style="font-size: 14px; color: var(--color-accent-light); margin-bottom: 12px;">Resultados de Lista de Chequeo</h4>
+                <div id="inspection-detail-checklist" style="display: flex; flex-direction: column; gap: 12px; font-size: 13px; margin-bottom: 20px;">
+                    <!-- Poblado por JS -->
+                </div>
+                <div id="inspection-detail-findings-container" style="display: none; border-top: 1px dashed var(--color-error); padding-top: 12px; margin-top: 12px;">
+                    <h4 style="font-size: 13px; color: var(--color-error); margin-bottom: 8px;">⚠️ Hallazgos y Corrección</h4>
+                    <p id="inspection-detail-findings" style="font-size: 12.5px; background: rgba(239, 68, 68, 0.05); padding: 10px; border-radius: 6px; border: 1px solid rgba(239, 68, 68, 0.15); margin: 0 0 10px 0; line-height: 1.5; color: #fff;"></p>
+                    
+                    <!-- Sección de Resolución -->
+                    <div id="inspection-detail-resolution" style="display: none; background: rgba(16, 185, 129, 0.05); border: 1px solid rgba(16, 185, 129, 0.15); padding: 12px; border-radius: 6px; margin-top: 10px;">
+                        <h5 style="font-size: 12px; color: var(--color-success); margin: 0 0 6px 0; font-weight: 600;">✅ Solución Implementada</h5>
+                        <p id="inspection-detail-resolution-comments" style="font-size: 12px; color: #fff; margin: 0 0 8px 0; line-height: 1.4;"></p>
+                        <div style="text-align: center;">
+                            <img id="inspection-detail-resolution-photo" style="max-width: 100%; max-height: 180px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.05);" alt="Evidencia fotográfica de solución">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-secondary" onclick="closeModal('modal-inspection-detail')">Cerrar Detalle</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 11: RESOLVER NOVEDAD (JEFE DE ÁREA) -->
+    <div id="modal-resolve-finding" class="modal-overlay">
+        <div class="modal-card" style="max-width: 500px;">
+            <div class="modal-header">
+                <h3>Subir Evidencia de Corrección</h3>
+                <button class="btn-close-modal" onclick="closeModal('modal-resolve-finding')">&times;</button>
+            </div>
+            <form id="finding-resolve-form">
+                <input type="hidden" id="resolve-finding-id">
+                <div class="modal-body" style="padding: 20px; display: flex; flex-direction: column; gap: 16px;">
+                    <div>
+                        <span style="font-size: 11px; text-transform: uppercase; color: var(--color-accent-light); font-weight: 700; display: block; margin-bottom: 4px;">Novedad Detectada</span>
+                        <p id="resolve-finding-desc" style="font-size: 13px; color: #fff; margin: 0; background: rgba(255,255,255,0.03); padding: 10px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.05); line-height: 1.4;"></p>
+                    </div>
+                    <div class="form-group">
+                        <label for="resolve-finding-photo">Evidencia Fotográfica (Imagen)</label>
+                        <input type="file" id="resolve-finding-photo" accept="image/*" required style="padding: 8px 10px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.08); width: 100%; color: #fff; border-radius: 8px; font-size: 12px;">
+                        <div id="resolve-photo-preview-container" style="display: none; margin-top: 10px; text-align: center; background: rgba(0,0,0,0.2); padding: 10px; border-radius: 8px;">
+                            <img id="resolve-photo-preview" style="max-width: 100%; max-height: 200px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.1);" alt="Previsualización de evidencia">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="resolve-finding-comments">Comentarios de la Solución / Acción Tomada</label>
+                        <textarea id="resolve-finding-comments" rows="3" placeholder="Describa detalladamente cómo se corrigió la novedad..." required style="padding: 10px 12px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.08); width: 100%; color: #fff; border-radius: 8px; font-family: var(--font-body); font-size: 13px;"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-secondary" onclick="closeModal('modal-resolve-finding')">Cancelar</button>
+                    <button type="submit" class="btn-primary">Guardar Solución</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL 12: GESTIONAR NOVEDAD (COORDINADOR / ADMIN) -->
+    <div id="modal-admin-finding" class="modal-overlay">
+        <div class="modal-card" style="max-width: 500px;">
+            <div class="modal-header">
+                <h3>Gestionar Novedad de Inspección</h3>
+                <button class="btn-close-modal" onclick="closeModal('modal-admin-finding')">&times;</button>
+            </div>
+            <form id="finding-admin-form">
+                <input type="hidden" id="admin-finding-id">
+                <div class="modal-body" style="padding: 20px; display: flex; flex-direction: column; gap: 16px;">
+                    <div>
+                        <span style="font-size: 11px; text-transform: uppercase; color: var(--color-error); font-weight: 700; display: block; margin-bottom: 4px;">Novedad Detectada</span>
+                        <p id="admin-finding-desc" style="font-size: 13px; color: #fff; margin: 0; background: rgba(255,255,255,0.03); padding: 10px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.05); line-height: 1.4;"></p>
+                    </div>
+                    
+                    <!-- Evidencia cargada por el Jefe de Área -->
+                    <div id="admin-finding-evidence-section" style="display: none; background: rgba(255,255,255,0.02); padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.04);">
+                        <span style="font-size: 11px; text-transform: uppercase; color: var(--color-success); font-weight: 700; display: block; margin-bottom: 8px;">Solución Propuesta por Jefatura</span>
+                        <div style="text-align: center; margin-bottom: 10px;">
+                            <img id="admin-finding-photo" style="max-width: 100%; max-height: 180px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.1);" alt="Evidencia fotográfica">
+                        </div>
+                        <p id="admin-finding-comments" style="font-size: 12.5px; color: #fff; margin: 0; line-height: 1.4; background: rgba(0,0,0,0.2); padding: 8px; border-radius: 4px;"></p>
+                    </div>
+                    
+                    <div id="admin-finding-no-evidence-section" style="display: block; text-align: center; padding: 12px; background: rgba(239, 68, 68, 0.05); border: 1px dashed rgba(239, 68, 68, 0.2); border-radius: 8px; color: var(--color-text-muted); font-size: 12px;">
+                        ⚠️ Aún no se ha subido evidencia fotográfica de corrección por parte de la jefatura.
+                    </div>
+
+                    <div class="form-group">
+                        <label for="admin-finding-status">Estado de la Novedad</label>
+                        <select id="admin-finding-status" required style="padding: 10px 12px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.08); width: 100%; color: #fff; border-radius: 8px;">
+                            <option value="Pendiente">Pendiente (Requiere acción)</option>
+                            <option value="Resuelto">Resuelto (Aprobado)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="admin-finding-review">Comentarios del Administrador / Revisión</label>
+                        <textarea id="admin-finding-review" rows="3" placeholder="Escriba comentarios de revisión o instrucciones adicionales..." style="padding: 10px 12px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.08); width: 100%; color: #fff; border-radius: 8px; font-family: var(--font-body); font-size: 13px;"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-secondary" onclick="closeModal('modal-admin-finding')">Cancelar</button>
+                    <button type="submit" class="btn-primary">Guardar Cambios</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Lógica principal de JavaScript -->
+    <script src="app.js"></script>
+</body>
+</html>

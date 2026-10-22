@@ -1,0 +1,10 @@
+{
+    "course-1": {
+        "status": "pending",
+        "score": 0
+    },
+    "course-2": {
+        "status": "pending",
+        "score": 0
+    }
+}

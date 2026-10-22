@@ -1,0 +1,26 @@
+[
+    {
+        "id": "notif-1783575066645-381",
+        "title": "Solución Recibida",
+        "message": "Se subió la solución de novedad en el área Producción.",
+        "date": "9/7/2026 00:31",
+        "targetArea": "Coordinador",
+        "read": false
+    },
+    {
+        "id": "notif-1783575020309-184",
+        "title": "Solución Recibida",
+        "message": "Se subió la solución de novedad en el área Producción.",
+        "date": "9/7/2026 00:30",
+        "targetArea": "Coordinador",
+        "read": false
+    },
+    {
+        "id": "notif-1783574051298-411",
+        "title": "Alerta de Incumplimiento",
+        "message": "Fallas en checklist de área Producción. Responsable: Producción. Hallazgo: etiquetas dañadas ",
+        "date": "9/7/2026 00:14",
+        "targetArea": "Producción",
+        "read": false
+    }
+]

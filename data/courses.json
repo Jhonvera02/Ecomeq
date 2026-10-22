@@ -1,0 +1,76 @@
+[
+    {
+        "id": "course-1",
+        "category": "Presentación",
+        "title": "Clasificación de RESPEL: Hidrocarburos, Ácidos y Básicos (SGA)",
+        "desc": "Aprenda a identificar y segregar correctamente los residuos de acuerdo a su naturaleza de inflamabilidad o corrosividad siguiendo el Sistema Globalmente Armonizado.",
+        "icon": "<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\" stroke=\"currentColor\" stroke-width=\"2\" fill=\"none\"><path d=\"M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6\"></path></svg>",
+        "slides": [
+            {
+                "title": "Introducción a los Residuos Peligrosos",
+                "content": "<p>Un residuo peligroso (<strong>RESPEL</strong>) es aquel que, por sus características corrosivas, reactivas, explosivas, tóxicas, inflamables o biológico-infecciosas, puede causar daño a la salud humana o al medio ambiente.</p><p>En nuestra empresa, la clasificación básica obligatoria divide las corrientes líquidas y químicas principalmente en tres grupos:</p><ul><li><strong>Hidrocarburos:</strong> Aceites usados, grasas, combustibles y solventes orgánicos.</li><li><strong>Ácidos:</strong> Residuos líquidos con un pH menor a 2 (ácido clorhídrico, sulfúrico, nítrico).</li><li><strong>Básicos:</strong> Residuos líquidos con un pH mayor a 12 (hidróxido de sodio, potasa cáustica).</li></ul>"
+            },
+            {
+                "title": "Identificación según SGA",
+                "content": "<p>El Sistema Globalmente Armonizado (SGA) exige etiquetar cada recipiente contenedor de RESPEL con sus pictogramas correspondientes:</p><ul><li><strong>Llamas (Inflamables):</strong> Aplica a Hidrocarburos. Mantener lejos de chispas y calor excesivo.</li><li><strong>Corrosión (Corrosivos):</strong> Aplica a Ácidos y Básicos. Causa quemaduras graves en piel y ojos.</li><li><strong>Signo de Exclamación / Calavera:</strong> Tóxicos por inhalación o contacto.</li></ul><div class=\"slide-highlight-card\"><p>⚠️ IMPORTANTE: Nunca mezcle ácidos con básicos. La reacción es violenta (neutralización exotérmica) liberando gases tóxicos y altas temperaturas.</p></div>"
+            },
+            {
+                "title": "Normas de Segregación en Ecomeq",
+                "content": "<p>Al hacer entrega de residuos en el centro de almacenamiento:</p><ul><li>Los <strong>Hidrocarburos</strong> se almacenan en el dique de contención verde, en bidones plásticos.</li><li>Los <strong>Ácidos</strong> se ubican sobre estibas antiderrame independientes etiquetadas con color rojo.</li><li>Los <strong>Básicos</strong> se colocan en estibas antiderrame independientes con etiqueta azul.</li></ul><p>Cada entrega debe pesarse de manera exacta y ser reportada a través del sistema inmediatamente.</p>"
+            }
+        ],
+        "quiz": [
+            {
+                "question": "¿Cuál es el riesgo principal de mezclar residuos Ácidos con Básicos?",
+                "options": [
+                    "No ocurre nada, se neutralizan pacíficamente.",
+                    "Se genera una reacción exotérmica violenta con posible emisión de vapores tóxicos.",
+                    "Los residuos se evaporan por completo."
+                ],
+                "answer": 1
+            },
+            {
+                "question": "¿Qué pictograma del SGA corresponde típicamente a los Hidrocarburos?",
+                "options": [
+                    "Calavera y tibias cruzadas",
+                    "Signo de exclamación de peligro genérico",
+                    "Llama de sustancia inflamable"
+                ],
+                "answer": 2
+            },
+            {
+                "question": "¿Cuál es el pH característico de un residuo químico Básico o Alcalino?",
+                "options": [
+                    "pH menor a 2",
+                    "pH neutral (exactamente 7)",
+                    "pH mayor a 12"
+                ],
+                "answer": 2
+            }
+        ]
+    },
+    {
+        "id": "course-2",
+        "category": "Sensibilización",
+        "title": "Manejo Seguro de Sustancias Químicas Corrosivas e Inflamables",
+        "desc": "Protocolos operativos estándar para la manipulación, trasvase y almacenamiento temporal de ácidos, bases e hidrocarburos.",
+        "icon": "<svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\" stroke=\"currentColor\" stroke-width=\"2\" fill=\"none\"><path d=\"M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z\"></path><line x1=\"12\" y1=\"9\" x2=\"12\" y2=\"13\"></line><circle cx=\"12\" cy=\"17\" r=\"1\"></circle></svg>",
+        "slides": [
+            {
+                "title": "Riesgos de Corrosivos e Inflamables",
+                "content": "<p>Las sustancias químicas peligrosas con las que trabajamos a diario requieren medidas de protección específicas:</p><ul><li><strong>Sustancias Corrosivas (Ácidos y Bases):</strong> Tienen el potencial de destruir tejidos vivos o materiales metálicos. Sus vapores pueden lesionar las vías respiratorias.</li><li><strong>Sustancias Inflamables (Hidrocarburos):</strong> Tienen un punto de inflamación bajo y pueden arder con facilidad. Los vapores acumulados en espacios cerrados representan riesgo de explosión.</li></ul>"
+            }
+        ],
+        "quiz": [
+            {
+                "question": "¿Qué EPP es indispensable al trasvasar ácidos concentrados?",
+                "options": [
+                    "Guantes de tela y gafas comunes.",
+                    "Careta facial completa, guantes de nitrilo/neopreno y delantal de PVC.",
+                    "Solo mascarilla antipolvo."
+                ],
+                "answer": 1
+            }
+        ]
+    }
+]
